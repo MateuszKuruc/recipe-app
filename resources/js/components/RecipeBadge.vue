@@ -1,7 +1,29 @@
 <script setup lang="ts">
+import {
+    Flame,
+    Dumbbell,
+    Leaf,
+    Candy,
+    Zap,
+    Hourglass,
+    Tag
+} from 'lucide-vue-next';
+
 defineProps({
     tags: Array,
 })
+
+function badgeIcon(name) {
+    switch(name) {
+        case 'Wegetariański': return Leaf;
+        case 'Wysokobiałkowy': return Dumbbell;
+        case 'Ostry': return Flame;
+        case 'Słodki': return Candy;
+        case 'Szybki': return Zap;
+        case 'Czasochłonny': return Hourglass;
+        default: return Tag;
+    }
+}
 
 function badgeClass(name) {
     switch(name) {
@@ -17,7 +39,8 @@ function badgeClass(name) {
 
 <template>
     <div class="flex flex-wrap gap-2 mt-2">
-        <span v-for="tag in tags" :key="tag.id" class="px-2 py-1 text-xs font-semibold rounded text-white" :class="badgeClass(tag.name)">
+        <span v-for="tag in tags" :key="tag.id" class="inline-flex gap-1 px-2 py-1 text-s font-semibold rounded text-white" :class="badgeClass(tag.name)">
+            <component :is="badgeIcon(tag.name)" class="h-6 w-6" />
             {{ tag.name }}
         </span>
     </div>
