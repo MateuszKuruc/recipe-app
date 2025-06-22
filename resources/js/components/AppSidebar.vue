@@ -33,15 +33,15 @@ const footerNavItems: NavItem[] = [
     //     icon: Folder,
     // },
     {
-        title: 'Add New Recipe',
-        href: '/recipes/create',
+        title: 'Dodaj nowy przepis',
+        href: '/przepisy/dodaj',
         icon: Folder,
     },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
+    // {
+    //     title: 'Documentation',
+    //     href: 'https://laravel.com/docs/starter-kits#vue',
+    //     icon: BookOpen,
+    // },
 ];
 </script>
 
