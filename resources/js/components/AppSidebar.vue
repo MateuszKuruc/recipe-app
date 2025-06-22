@@ -10,18 +10,18 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Home',
+        title: 'Strona główna',
         href: '/',
         icon: LayoutGrid,
     },
     {
-        title: 'Recipes',
-        href: '/recipes',
+        title: 'Przepisy',
+        href: '/przepisy',
         icon: LayoutGrid,
     },
     {
-        title: 'Categories',
-        href: '/categories',
+        title: 'Kategorie',
+        href: '/kategorie',
         icon: LayoutGrid,
     }
 ];

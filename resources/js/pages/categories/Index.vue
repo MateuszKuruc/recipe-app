@@ -10,19 +10,19 @@ import Paginator from '@/components/Paginator.vue';
 
 
 defineProps({
-recipes: Object,
+    recipes: Object,
 })
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Przepisy',
+        title: 'Recipes',
         href: '/recipes',
     }
 ];
 </script>
 
 <template>
-    <Head title="Przepisy" />
+    <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
