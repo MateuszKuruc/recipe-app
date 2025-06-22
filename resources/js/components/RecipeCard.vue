@@ -7,9 +7,9 @@ recipe: Object,
 </script>
 
 <template>
-    <div class="relative bg-white  p-4 flex flex-col space-y-2">
+    <div class="relative bg-white p-4 flex flex-col space-y-2">
 
-        <img :src="recipe.main_image" alt="Recipe image" class="rounded-xl w-full h-48 object-cover">
+        <img :src="recipe.main_image" alt="Recipe image" class="rounded-xl w-full object-cover">
         <RecipeBadge :tags="recipe.tags" />
         <h2 class="text-lg font-semibold text-red-600">{{ recipe.title }}</h2>
         <p class="text-sm text-gray-600">{{ recipe.excerpt }}</p>
