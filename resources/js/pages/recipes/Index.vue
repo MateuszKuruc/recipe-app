@@ -31,20 +31,17 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <ActionCard title="View All Categories" :icon="Grid" :href="route('home')" />
-                <ActionCard title="Add New Recipe" :icon="Plus" :href="route('home')" />
-                <ActionCard title="Latest Recipes" :icon="Clock" :href="route('home')" />
+                <ActionCard title="Wszystkie kategorie" :icon="Grid" :href="route('categories.index')" />
+                <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('home')" />
+                <ActionCard title="Najnowsze przepisy" :icon="Clock" :href="route('home')" />
             </div>
 
             <div class="flex flex-col gap-y-4">
-                <h2 class="text-2xl font-bold border-b py-4">All Recipes</h2>
+                <h2 class="text-2xl font-bold border-b py-4">Wszystkie przepisy</h2>
                 <div class="relative min-h-[100vh] flex-1 grid grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <RecipeCard v-for="recipe in recipes.data" :key="recipe.id"  :recipe="recipe"  />
                 </div>
-
-                <div>
                     <Paginator :recipes="recipes" />
-                </div>
             </div>
         </div>
     </AppLayout>
