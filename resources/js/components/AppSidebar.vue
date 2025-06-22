@@ -10,16 +10,31 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'Home',
+        href: '/',
         icon: LayoutGrid,
     },
+    {
+        title: 'Recipes',
+        href: '/recipes',
+        icon: LayoutGrid,
+    },
+    {
+        title: 'Categories',
+        href: '/categories',
+        icon: LayoutGrid,
+    }
 ];
 
 const footerNavItems: NavItem[] = [
+    // {
+    //     title: 'Github Repo',
+    //     href: 'https://github.com/laravel/vue-starter-kit',
+    //     icon: Folder,
+    // },
     {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
+        title: 'Add New Recipe',
+        href: '/recipes/create',
         icon: Folder,
     },
     {
