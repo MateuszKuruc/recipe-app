@@ -10,7 +10,7 @@ import Paginator from '@/components/Paginator.vue';
 
 
 defineProps({
-    recipes: Object,
+    categories: Array
 })
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -31,19 +31,14 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <ActionCard title="View All Categories" :icon="Grid" :href="route('home')" />
-                <ActionCard title="Add New Recipe" :icon="Plus" :href="route('home')" />
-                <ActionCard title="Latest Recipes" :icon="Clock" :href="route('home')" />
+                <ActionCard v-for="category in categories" :title="category.name" :icon="Grid" :href="route('home')" />
             </div>
 
-            <div class="flex flex-col gap-y-4">
-                <h2 class="text-2xl font-bold border-b py-4">All Recipes</h2>
-                <div class="relative min-h-[100vh] flex-1 grid grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <RecipeCard v-for="recipe in recipes.data" :key="recipe.id"  :recipe="recipe"  />
-                </div>
-
-                <div>
-                    <Paginator :recipes="recipes" />
+            <div>
+                <h2>Sprawdź też:</h2>
+                <div class="grid auto-rows-min gap-4 md:grid-cols-2">
+                    <ActionCard title="Wszystkie przepisy" :icon="Grid" href="" />
+                    <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />
                 </div>
             </div>
         </div>
