@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -30,9 +31,16 @@ class RecipeController extends Controller
     public function show(Recipe $recipe)
     {
         $recipe->load(['tags', 'category']);
+        $categories = Category::withCount('recipes')->get();
+        $relatedRecipes = Recipe::where('category_id', $recipe->category_id)
+            ->where('id', '!=', $recipe->id)
+            ->take(3)
+            ->get();
 
         return inertia::render('recipes/Show', [
             'recipe' => $recipe,
+            'categories' => $categories,
+            'relatedRecipes' => $relatedRecipes
         ]);
     }
 
