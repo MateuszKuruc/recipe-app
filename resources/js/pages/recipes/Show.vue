@@ -28,8 +28,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <img :src="recipe.main_image" :alt="recipe.title" />
             </div>
 
-            <div class="grid grid-cols-[1fr_400px] gap-20">
-                <div class="m-auto max-w-[700px]">
+            <div class="md:grid xl:grid-cols-[1fr_400px] gap-20">
+                <div class="m-auto max-w-[700px] pb-16 md:pb-16">
                     <div class="flex flex-col gap-y-2">
                         <p>
                             Kategoria:
@@ -107,8 +107,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </div>
                 </div>
 
-                <div class="max-w-[400px]">
-                    <aside class="hidden w-full space-y-8 lg:block">
+                <div class="xl:max-w-[400px] max-w-[80%]">
+                    <aside class="w-full space-y-8">
                         <!-- Categories -->
                         <div>
                             <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Kategorie</h3>
@@ -124,10 +124,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <!-- Related Recipes -->
                         <div>
                             <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Podobne przepisy</h3>
-                            <ul class="space-y-8">
+                            <ul class="space-y-8 flex flex-col ">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
                                     <img :src="recipe.main_image" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
-                                    <Link :href="route('recipes.show', recipe.slug)" class="text-lg text-gray-700 hover:text-red-600">
+                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-red-500 hover:text-red-600">
                                         {{ recipe.title }}
                                     </Link>
                                 </li>

@@ -25,6 +25,6 @@ defineProps({
         <Link :href="route('recipes.show', recipe.slug)" class="w-max">
             <h2 class="text-lg font-semibold text-red-600">{{ recipe.title }}</h2>
         </Link>
-        <p class="text-sm text-gray-600">{{ recipe.excerpt }}</p>
+        <p class="paragraph">{{ recipe.excerpt }}</p>
     </div>
 </template>
