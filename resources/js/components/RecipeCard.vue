@@ -5,13 +5,14 @@ import { Tag } from 'lucide-vue-next';
 
 defineProps({
     recipe: Object,
+    currentSlug: String
 });
 </script>
 
 <template>
     <div class="relative flex flex-col space-y-2 bg-white p-4">
         <Link class="relative">
-            <Link :href="route('categories.index', recipe.category.slug)" class="flex gap-2 bg-yellow-500 px-6 py-3 rounded-l-xl absolute right-0 top-5">
+            <Link v-if="currentSlug !== recipe.category.slug" :href="route('categories.show', recipe.category.slug)" class="flex gap-2 bg-yellow-500 px-6 py-3 rounded-l-xl absolute right-0 top-5">
                 <Tag />
             {{ recipe.category.name }}
             </Link>
