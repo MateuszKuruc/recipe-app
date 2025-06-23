@@ -22,6 +22,7 @@ Route::get('przepisy/{recipe}', [RecipeController::class, 'show'])->name('recipe
 //Route::delete('recipes/{recipe}', RecipeController::class)->name('recipes.destroy');
 
 Route::get('kategorie', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('kategorie/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
