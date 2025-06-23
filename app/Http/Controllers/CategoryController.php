@@ -20,4 +20,12 @@ class CategoryController extends Controller
             'totalRecipes' => $totalRecipes,
         ]);
     }
+
+    public function show(Category $category)
+    {
+        $category->load(['recipes.category', 'recipes.tags']);
+        return Inertia::render('categories/Show', [
+            'category' => $category,
+        ]);
+    }
 }
