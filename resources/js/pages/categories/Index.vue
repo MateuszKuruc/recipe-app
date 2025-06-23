@@ -38,7 +38,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div>
                 <h2>Sprawdź też:</h2>
                 <div class="grid auto-rows-min gap-4 md:grid-cols-2">
-                    <ActionCard title="Wszystkie przepisy" :icon="Grid" href="" :count="totalRecipes" />
+                    <ActionCard title="Wszystkie przepisy" :icon="Grid" :href="route('recipes.index')" :count="totalRecipes" />
                     <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />
                 </div>
             </div>
