@@ -29,7 +29,11 @@ class RecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
+        $recipe->load(['tags', 'category']);
 
+        return inertia::render('recipes/Show', [
+            'recipe' => $recipe,
+        ]);
     }
 
     public function edit(Recipe $recipe)
