@@ -1,42 +1,44 @@
 <script setup lang="ts">
+import ActionCard from '@/components/ActionCard.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Input } from '@/components/ui/input'
-import RecipeCard from '@/components/RecipeCard.vue';
-import ActionCard from '@/components/ActionCard.vue';
-import { Grid, Plus, Clock } from 'lucide-vue-next';
-import Paginator from '@/components/Paginator.vue';
-
+import { Head } from '@inertiajs/vue3';
+import { Grid } from 'lucide-vue-next';
 
 defineProps({
     categories: Array,
-    totalRecipes: Number
-})
+    totalRecipes: Number,
+});
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Kategorie',
         href: '/kategorie',
-    }
+    },
 ];
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Kategorie" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
-            <div class="flex flex-col items-center py-8">
-                <Input placeholder="Search..." class="w-[400px]" />
+            <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
+
+            <!--                <h2>Kolekcja przepisów</h2>-->
+            <div class="grid auto-rows-min gap-3 md:grid-cols-2">
+                <ActionCard
+                    class="h-42 w-full"
+                    v-for="category in categories"
+                    :title="category.name"
+                    :image="category.image"
+                    :href="route('categories.show', category.slug)"
+                    :count="category.recipes_count"
+                />
             </div>
 
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <ActionCard v-for="category in categories" :title="category.name" :href="route('home')" :count="category.recipes_count" />
-            </div>
-
-            <div>
-                <h2>Sprawdź też:</h2>
+            <div class="space-y-8">
+                <h2 class="text-3xl pt-6 font-bold">Sprawdź też:</h2>
                 <div class="grid auto-rows-min gap-4 md:grid-cols-2">
                     <ActionCard title="Wszystkie przepisy" :icon="Grid" :href="route('recipes.index')" :count="totalRecipes" />
                     <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />
