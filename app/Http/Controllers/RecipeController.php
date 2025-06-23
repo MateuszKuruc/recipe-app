@@ -10,8 +10,8 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        // need to paginate later on to improve efficiency
         $recipes = Recipe::with('tags')->paginate(5);
+
         return inertia::render('recipes/Index', [
             'recipes' => $recipes,
         ]);
