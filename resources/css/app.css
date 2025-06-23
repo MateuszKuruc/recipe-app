@@ -164,4 +164,12 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .paragraph {
+        @apply whitespace-pre-line leading-loose text-gray-700;
+    }
 }
