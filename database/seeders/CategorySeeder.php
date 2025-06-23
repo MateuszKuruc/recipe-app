@@ -14,11 +14,11 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-          'Śniadanie',
-          'Przekąska',
-          'Deser',
-          'Zupa',
-          'Danie główne',
+            'Śniadanie',
+            'Przekąska',
+            'Deser',
+            'Zupa',
+            'Danie główne',
             'Sałatka',
             'Napój'
         ];
