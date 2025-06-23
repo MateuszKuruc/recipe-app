@@ -1,18 +1,14 @@
 <script setup lang="ts">
+import RecipeBadge from '@/components/RecipeBadge.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Input } from '@/components/ui/input';
-import RecipeCard from '@/components/RecipeCard.vue';
-import ActionCard from '@/components/ActionCard.vue';
-import { Grid, Plus, Clock, Utensils, Hourglass } from 'lucide-vue-next';
-import Paginator from '@/components/Paginator.vue';
-import RecipeBadge from '@/components/RecipeBadge.vue';
+import { Clock, Hourglass, Utensils } from 'lucide-vue-next';
 
 defineProps({
     recipe: Object,
     categories: Array,
-    relatedRecipes: Array
+    relatedRecipes: Array,
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -33,22 +29,21 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div class="grid grid-cols-[1fr_400px] gap-20">
-                <div class="max-w-[700px] m-auto">
+                <div class="m-auto max-w-[700px]">
                     <div class="flex flex-col gap-y-2">
-                        <div class="flex justify-between">
-                            <h2 class="text-2xl font-bold">{{ recipe.title }}</h2>
-                            <p>
-                                Opublikowano w
-                                <Link :href="route('categories.index')" class="text-blue-500 hover:text-blue-600 hover:underline"
-                                    >{{ recipe.category.name }}
-                                </Link>
-                            </p>
-                        </div>
+                        <p>
+                            Kategoria:
+                            <Link :href="route('categories.index')" class="text-blue-500 hover:text-blue-600 hover:underline"
+                                >{{ recipe.category.name }}
+                            </Link>
+                        </p>
+                        <h2 class="w-[600px] text-4xl font-bold text-red-500">{{ recipe.title }}</h2>
+
                         <RecipeBadge :tags="recipe.tags" />
-                        <p class="paragraph">{{ recipe.excerpt }}</p>
+                        <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
                     </div>
 
-                    <div class="grid grid-cols-3 rounded-xl border p-6 my-8">
+                    <div class="my-8 grid grid-cols-3 rounded-xl border p-6">
                         <div class="flex flex-col items-center gap-4">
                             <div class="flex items-center gap-2">
                                 <Utensils />
@@ -74,59 +69,52 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-4 overflow-hidden rounded-xl border text-center mb-16">
+                    <div class="mb-16 grid grid-cols-4 overflow-hidden rounded-xl border text-center">
                         <a href="#skladniki" class="border-r p-4 hover:bg-gray-50">Składniki</a>
                         <a href="#przygotowanie" class="border-r p-4 hover:bg-gray-50">Przygotowanie</a>
                         <a href="#uwagi" class="border-r p-4 hover:bg-gray-50">Uwagi</a>
                         <a href="#inspiracje" class="p-4 hover:bg-gray-50">Inspiracje</a>
                     </div>
+                    <div class="space-y-8">
+                        <div class="flex flex-col gap-y-2" id="skladniki">
+                            <h2 class="border-b pb-2 text-3xl font-bold">Składniki</h2>
+                            <p class="paragraph">{{ recipe.ingredients }}</p>
+                        </div>
 
-                    <div class="flex flex-col gap-y-2" id="skladniki">
-                        <h2 class="border-b pb-2">Składniki</h2>
-                        <p class="paragraph">{{ recipe.ingredients }}</p>
-                    </div>
+                        <div class="flex flex-col gap-y-2">
+                            <h2 class="border-b pb-2 text-3xl font-bold" id="przygotowanie">Przygotowanie</h2>
+                            <p class="paragraph">{{ recipe.instructions }}</p>
+                        </div>
 
-                    <div class="flex flex-col gap-y-2">
-                        <h2 class="border-b pb-2" id="przygotowanie">Przygotowanie</h2>
-                        <p class="paragraph">{{ recipe.instructions }}</p>
-                    </div>
+                        <div class="flex flex-col gap-y-2">
+                            <h2 class="border-b pb-2 text-3xl font-bold">Propozycja podania</h2>
+                            <p class="paragraph">{{ recipe.ingredients }}</p>
+                        </div>
 
-                    <div class="flex flex-col gap-y-2">
-                        <h2 class="border-b pb-2">Propozycja podania</h2>
-                        <p class="paragraph">{{ recipe.ingredients }}</p>
-                    </div>
+                        <div class="flex flex-col gap-y-2" id="uwagi">
+                            <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
+                            <p class="paragraph">{{ recipe.ingredients }}</p>
+                        </div>
 
-                    <div class="flex flex-col gap-y-2" id="uwagi">
-                        <h2 class="border-b pb-2">Uwagi</h2>
-                        <p class="paragraph">{{ recipe.ingredients }}</p>
-                    </div>
+                        <div>
+                            <img :src="recipe.secondary_image" alt="" />
+                        </div>
 
-                    <div>
-                        <img :src="recipe.secondary_image" alt="" />
-                    </div>
-
-                    <div class="flex flex-col gap-y-2" id="inspiracje">
-                        <h2 class="border-b pb-2">Inspiracje</h2>
-                        <p>{{ recipe.ingredients }}</p>
+                        <div class="flex flex-col gap-y-2" id="inspiracje">
+                            <h2 class="border-b pb-2 text-3xl font-bold">Inspiracje</h2>
+                            <p>{{ recipe.ingredients }}</p>
+                        </div>
                     </div>
                 </div>
 
-
-
-
                 <div class="max-w-[400px]">
-
-
-                    <aside class="hidden lg:block w-full space-y-8">
+                    <aside class="hidden w-full space-y-8 lg:block">
                         <!-- Categories -->
                         <div>
-                            <h3 class="text-lg font-semibold border-b pb-1 mb-2">Kategorie</h3>
+                            <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Kategorie</h3>
                             <ul class="space-y-1 text-sm">
                                 <li v-for="category in categories" :key="category.id">
-                                    <Link
-                                      href="#"
-                                        class="text-gray-700 hover:text-red-600 hover:underline"
-                                    >
+                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-red-600 hover:underline">
                                         {{ category.name }} <span class="text-gray-400">({{ category.recipes_count }})</span>
                                     </Link>
                                 </li>
@@ -135,14 +123,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                         <!-- Related Recipes -->
                         <div>
-                            <h3 class="text-lg font-semibold border-b pb-1 mb-2">Podobne przepisy</h3>
+                            <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Podobne przepisy</h3>
                             <ul class="space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
-                                    <img
-                                        :src="recipe.main_image"
-                                        :alt="recipe.title"
-                                        class="w-full h-full object-cover rounded-xl border"
-                                    />
+                                    <img :src="recipe.main_image" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
                                     <Link :href="route('recipes.show', recipe.slug)" class="text-lg text-gray-700 hover:text-red-600">
                                         {{ recipe.title }}
                                     </Link>
@@ -150,10 +134,6 @@ const breadcrumbs: BreadcrumbItem[] = [
                             </ul>
                         </div>
                     </aside>
-
-
-
-
                 </div>
             </div>
         </div>
