@@ -8,6 +8,7 @@ interface Props {
     icon?: Component;
     href: string;
     count?: number;
+    image?: string;
 }
 
 const props = defineProps<Props>();
@@ -15,12 +16,14 @@ const props = defineProps<Props>();
 
 <template>
     <div class="relative aspect-video overflow-hidden rounded-xl border ">
+        <img :src="image" alt="">
         <Link
             :href="href"
-            class="w-full h-full flex flex-col items-center justify-center rounded-lg border border-gray-200 p-4 text-center shadow-sm transition hover:shadow-md hover:bg-gray-50 "
+            class="gap-1 w-full h-full flex flex-col items-center justify-center rounded-lg border border-gray-200 p-4 text-center shadow-sm transition hover:shadow-md hover:bg-gray-50 "
         >
             <component v-if="icon" :is="icon" class="h-6 w-6 mb-2 text-gray-600"/>
-            <span class="text-sm font-medium">{{ title }} <span v-if="count">({{ count }})</span></span>
+            <span v-if="count" class="font-bold">{{ count }} przepisów</span>
+            <span class="text-2xl font-bold text-red-500 hover:text-red-600">{{ title }} </span>
         </Link>
     </div>
 </template>
