@@ -11,7 +11,7 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::with('tags')->paginate(5);
+        $recipes = Recipe::with('tags', 'category')->paginate(5);
 
         return inertia::render('recipes/Index', [
             'recipes' => $recipes,
