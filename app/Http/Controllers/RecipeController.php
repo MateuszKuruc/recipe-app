@@ -28,7 +28,7 @@ class RecipeController extends Controller
 
     public function store()
     {
-
+        return inertia::render('recipes/Index');
     }
 
     public function show(Recipe $recipe)
