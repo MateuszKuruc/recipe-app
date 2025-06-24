@@ -14,7 +14,7 @@ Route::get('/', function () {
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('przepisy', [RecipeController::class, 'index'])->name('recipes.index');
-//Route::get('recipes/create', RecipeController::class)->name('recipes.create');
+Route::get('przepisy/dodaj', [RecipeController::class, 'create'])->name('recipes.create');
 //Route::post('recipes', RecipeController::class)->name('recipes.store');
 Route::get('przepisy/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
 //Route::get('recipes/{recipe}/edit', RecipeController::class)->name('recipes.edit');

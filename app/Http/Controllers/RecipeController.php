@@ -20,7 +20,10 @@ class RecipeController extends Controller
 
     public function create()
     {
-
+        $categories = Category::all();
+        return Inertia::render('recipes/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     public function store()
