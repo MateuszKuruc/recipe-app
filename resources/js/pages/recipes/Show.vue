@@ -4,6 +4,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { Clock, Hourglass, Utensils } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button'
+import { usePage } from '@inertiajs/vue3';
 
 defineProps({
     recipe: Object,
@@ -17,6 +19,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/przepisy',
     },
 ];
+
+const page = usePage();
+const authUser = page.props.auth?.user;
+const recipe = page.props.recipe
 </script>
 
 <template>
@@ -109,6 +115,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 
                 <div class="xl:max-w-[400px] max-w-[80%]">
                     <aside class="w-full space-y-8">
+                        <!-- Edit Recipe -->
+                        <Button v-if="authUser && recipe.user_id === authUser.id" @click="handleEdit">Edytuj przepis</Button>
+
                         <!-- Categories -->
                         <div>
                             <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Kategorie</h3>
