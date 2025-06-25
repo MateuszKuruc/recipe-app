@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class RecipeController extends Controller
@@ -41,8 +42,20 @@ class RecipeController extends Controller
             'secondary_image' => 'nullable|image|max:2048',
         ]);
 
+        $validated['slug'] = Str::slug($validated['title']);
 
+        $mainImagePath = $request->file('main_image')->store('recipes', 'public');
+        $secondaryImagePath = $request->file('secondary_image')
+           ? $request->file('secondary_image')->store('recipes', 'public')
+            : null;
 
+        $recipe = Recipe::create([
+           ...$validated,
+           'main_image' => $mainImagePath,
+           'secondary_image' => $secondaryImagePath,
+        ]);
+
+        return redirect()->route('recipes.show', $recipe->slug)->with('success', 'Dodano nowy przepis!');
 
     }
 

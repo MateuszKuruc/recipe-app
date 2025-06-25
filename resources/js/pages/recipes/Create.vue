@@ -37,7 +37,7 @@ const submit = () => {
     })
 }
 
-const currentStep = ref(3);
+const currentStep = ref(1);
 const maxStep = 3;
 
 const mainImagePreview = ref(null);
@@ -71,11 +71,11 @@ const validateStep2 = () => {
         form.setError('ingredients', 'Dodaj składniki');
         hasError = true;
     }
-    if (!form.prepare_time) {
+    if (form.prepare_time === null || form.prepare_time === undefined || form.prepare_time === '') {
         form.setError('prepare_time', 'Podaj czas przygotowania');
         hasError = true;
     }
-    if (!form.cooking_time) {
+    if (form.cooking_time === null || form.cooking_time === undefined || form.cooking_time === '') {
         form.setError('cooking_time', 'Podaj czas gotowania');
         hasError = true;
     }
