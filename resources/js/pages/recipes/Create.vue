@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
-import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,6 +27,10 @@ const form = useForm({
 });
 
 const submit = () => {
+    if(!validateStep3()) {
+        return
+    }
+
     form.post(route('recipes.store'), {
         forceFormData: true,
         onFinish: () => form.reset()
@@ -112,7 +115,7 @@ const handleNextStep = () => {
         }
     } else if (currentStep.value === 3) {
         if (validateStep3()) {
-            currentStep.value++
+            submit()
         }
     }
 }
@@ -132,6 +135,7 @@ const handleSecondaryImageUpload = (e: Event) => {
         secondaryImagePreview.value = URL.createObjectURL(file)
     }
 };
+
 
 </script>
 
@@ -247,15 +251,16 @@ const handleSecondaryImageUpload = (e: Event) => {
                     <Label for="main_image">Zdjęcie główne</Label>
                     <img v-if="mainImagePreview" :src="mainImagePreview" class="w-16 h-16 object-cover" />
                     <Input id="main_image" type="file" @change="handleMainImageUpload" />
-
                     <InputError :message="form.errors.main_image" />
+
                 </div>
+
 
                 <div class="grid gap-2">
                     <Label for="secondary_image">Zdjęcie dodatkowe</Label>
                     <img v-if="secondaryImagePreview" :src="secondaryImagePreview" class="w-16 h-16 object-cover" />
                     <Input id="secondary_image" type="file" @change="handleSecondaryImageUpload" />
-                    <InputError :message="form.errors.main_image" />
+                    <InputError :message="form.errors.secondary_image" />
 
                 </div>
 

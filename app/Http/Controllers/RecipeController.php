@@ -26,9 +26,24 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return inertia::render('recipes/Index');
+        $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'ingredients' => 'required|string',
+            'prepare_time' => 'required|integer',
+            'cooking_time' => 'required|integer',
+            'servings' => 'required|integer',
+            'instructions' => 'required|string',
+            'main_image' => 'required|image|max:2048',
+            'secondary_image' => 'nullable|image|max:2048',
+        ]);
+
+
+
+
     }
 
     public function show(Recipe $recipe)
