@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
             <div class="flex flex-col items-center border-b pb-8">
-                <img :src="recipe.main_image" :alt="recipe.title" />
+                <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
             </div>
 
             <div class="md:grid xl:grid-cols-[1fr_400px] gap-20">
@@ -96,8 +96,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <p class="paragraph">{{ recipe.ingredients }}</p>
                         </div>
 
-                        <div>
-                            <img :src="recipe.secondary_image" alt="" />
+                        <div v-if="recipe.secondary_image">
+                            <img :src="`/storage/${recipe.secondary_image}`" alt="" />
                         </div>
 
                         <div class="flex flex-col gap-y-2" id="inspiracje">
