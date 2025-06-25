@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Recipe;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -12,7 +13,7 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::with('tags', 'category')->paginate(5);
+        $recipes = Recipe::with('tags', 'category')->latest()->paginate(5);
 
         return inertia::render('recipes/Index', [
             'recipes' => $recipes,
@@ -21,9 +22,11 @@ class RecipeController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $tags = Tag::all(['id', 'name']);
+        $categories = Category::all(['id', 'name']);
         return Inertia::render('recipes/Create', [
             'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -40,6 +43,7 @@ class RecipeController extends Controller
             'instructions' => 'required|string',
             'main_image' => 'required|image|max:2048',
             'secondary_image' => 'nullable|image|max:2048',
+            'tags.*' => 'integer|exists:tags,id'
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
@@ -49,11 +53,15 @@ class RecipeController extends Controller
            ? $request->file('secondary_image')->store('recipes', 'public')
             : null;
 
+        unset($validated['tags']);
+
         $recipe = Recipe::create([
            ...$validated,
            'main_image' => $mainImagePath,
            'secondary_image' => $secondaryImagePath,
         ]);
+
+        $recipe->tags()->attach($request->tags);
 
         return redirect()->route('recipes.show', $recipe->slug)->with('success', 'Dodano nowy przepis!');
 

@@ -6,11 +6,24 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { ref } from 'vue';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+
 
 defineProps({
-    categories: Array
+    categories: Array,
+    tags: Array
 })
 
 const form = useForm({
@@ -24,6 +37,7 @@ const form = useForm({
     instructions: '',
     main_image: null,
     secondary_image: null,
+    tags: []
 });
 
 const submit = () => {
@@ -136,6 +150,7 @@ const handleSecondaryImageUpload = (e: Event) => {
     }
 };
 
+// const selectedTags = ref([]);
 
 </script>
 
@@ -147,19 +162,47 @@ const handleSecondaryImageUpload = (e: Event) => {
         <form @submit.prevent="submit" class="flex flex-col gap-6">
             <div v-if="currentStep === 1" class="grid gap-6">
 
+                <div>
+                    <h2 class="font-semibold mb-2">Tagi</h2>
+
+                    <div class="flex flex-col gap-2">
+                        <div
+                            v-for="tag in tags"
+                            :key="tag.id"
+                            class="flex items-center gap-2"
+                        >
+                            <input
+                                type="checkbox"
+                                :id="`tag-${tag.id}`"
+                                :value="tag.id"
+                                v-model="form.tags"
+                            />
+                            <label :for="`tag-${tag.id}`">{{ tag.name }}</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid gap-2">
                     <Label for="category">Kategoria</Label>
-                    <select name="category" id="category" v-model="form.category_id" class="input w-full rounded border px-3 py-2">
-                        <option value="" disabled selected>
-                            Wybierz kategorię
-                        </option>
-                        <option v-for="category in categories" :key="category.id" :value="category.id">
-                            {{ category.name }}
-                        </option>
 
-                    </select>
+                    <Select v-model="form.category_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Wybierz kategorię" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem
+                                v-for="category in categories"
+                                :key="category.id"
+                                :value="String(category.id)"
+                            >
+                                {{ category.name }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+
                     <InputError :message="form.errors.category_id" />
                 </div>
+
 
                 <div class="grid gap-2">
                     <Label for="title">Nazwa</Label>
@@ -169,71 +212,98 @@ const handleSecondaryImageUpload = (e: Event) => {
 
                 <div class="grid gap-2">
                     <Label for="excerpt">Krótki opis</Label>
-                    <textarea id="excerpt" v-model="form.excerpt" rows="3" placeholder="Napisz kilka słów o przepisie" class="rounded border px-3 py-2"></textarea>
+
+                    <Textarea
+                        id="excerpt"
+                        v-model="form.excerpt"
+                        placeholder="Napisz kilka słów o przepisie"
+                        class="h-24"
+                    />
+
                     <InputError :message="form.errors.excerpt" />
                 </div>
 
             </div>
                 <div v-if="currentStep === 2" class="grid gap-6">
 
-                <div class="grid gap-2">
-                    <Label for="ingredients">Składniki</Label>
-                    <textarea id="ingredients" rows="3" v-model="form.ingredients" placeholder="300g kurczaka, 2 papryki..." class="rounded border px-3 py-2"></textarea>
-                    <InputError :message="form.errors.ingredients" />
-                </div>
 
-                <div class="grid gap-2">
-                    <Label for="prepare_time">Czas przygotowania</Label>
-                    <select name="prepare_time" id="prepare_time" v-model="form.prepare_time" class="rounded border px-3 py-2">
-                        <option value="" disabled selected>
-                            Wybierz wartość
-                        </option>
-                        <option :value="0">0 min</option>
-                        <option :value="5">5 min</option>
-                        <option :value="15">15 min</option>
-                        <option :value="30">30 min</option>
-                        <option :value="45">45 min</option>
-                        <option :value="60">1 godz.</option>
-                        <option :value="90">1 godz. 30 min</option>
-                        <option :value="120">ponad 2 godz.</option>
-                    </select>
-                    <InputError :message="form.errors.prepare_time" />
-                </div>
+
+                    <div class="grid gap-2">
+                        <Label for="excerpt">Składniki</Label>
+
+                        <Textarea
+                            id="ingredients"
+                            v-model="form.ingredients"
+                            placeholder="300g kurczaka, 2 papryki..."
+                            class="h-24"
+                        />
+
+                        <InputError :message="form.errors.ingredients" />
+                    </div>
+
+
+                    <div class="grid gap-2">
+                        <Label for="prepare_time">Czas przygotowania</Label>
+
+                        <Select v-model="form.prepare_time">
+                            <SelectTrigger class="w-full">
+                                <SelectValue placeholder="Wybierz wartość" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="0">0 min</SelectItem>
+                                <SelectItem value="5">5 min</SelectItem>
+                                <SelectItem value="15">15 min</SelectItem>
+                                <SelectItem value="30">30 min</SelectItem>
+                                <SelectItem value="45">45 min</SelectItem>
+                                <SelectItem value="60">1 godz.</SelectItem>
+                                <SelectItem value="90">1 godz. 30 min</SelectItem>
+                                <SelectItem value="120">ponad 2 godz.</SelectItem>
+                            </SelectContent>
+                        </Select>
+
+                        <InputError :message="form.errors.prepare_time" />
+                    </div>
 
                     <div class="grid gap-2">
                         <Label for="cooking_time">Czas gotowania</Label>
-                        <select name="cooking_time" id="cooking_time" v-model="form.cooking_time" class="rounded border px-3 py-2">
-                            <option value="" disabled selected>
-                                Wybierz wartość
-                            </option>
-                            <option :value="0">0 min</option>
-                            <option :value="5">5 min</option>
-                            <option :value="15">15 min</option>
-                            <option :value="30">30 min</option>
-                            <option :value="45">45 min</option>
-                            <option :value="60">1 godz.</option>
-                            <option :value="75">1 godz. 15 min</option>
-                            <option :value="90">1 godz. 30 min</option>
-                            <option :value="120">ponad 2 godz.</option>
-                        </select>
+
+                        <Select v-model="form.cooking_time">
+                            <SelectTrigger class="w-full">
+                                <SelectValue placeholder="Wybierz wartość" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="0">0 min</SelectItem>
+                                <SelectItem value="5">5 min</SelectItem>
+                                <SelectItem value="15">15 min</SelectItem>
+                                <SelectItem value="30">30 min</SelectItem>
+                                <SelectItem value="45">45 min</SelectItem>
+                                <SelectItem value="60">1 godz.</SelectItem>
+                                <SelectItem value="75">1 godz. 15 min</SelectItem>
+                                <SelectItem value="90">1 godz. 30 min</SelectItem>
+                                <SelectItem value="120">ponad 2 godz.</SelectItem>
+                            </SelectContent>
+                        </Select>
+
                         <InputError :message="form.errors.cooking_time" />
                     </div>
 
                     <div class="grid gap-2">
                         <Label for="servings">Liczba porcji</Label>
-                        <select name="servings" id="servings" v-model="form.servings" class="rounded border px-3 py-2">
-                            <option value="" disabled selected>
-                                Wybierz wartość
-                            </option>
-                            <option :value="1">dla 1 osoby</option>
-                            <option :value="2">dla 2 osób</option>
-                            <option :value="3">dla 3 osób</option>
-                            <option :value="4">dla 4 osób</option>
-                            <option :value="5">dla 5 osób</option>
-                            <option :value="6">dla 6 osób</option>
 
+                        <Select v-model="form.servings">
+                            <SelectTrigger class="w-full">
+                                <SelectValue placeholder="Wybierz wartość" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="1">dla 1 osoby</SelectItem>
+                                <SelectItem value="2">dla 2 osób</SelectItem>
+                                <SelectItem value="3">dla 3 osób</SelectItem>
+                                <SelectItem value="4">dla 4 osób</SelectItem>
+                                <SelectItem value="5">dla 5 osób</SelectItem>
+                                <SelectItem value="6">dla 6 osób</SelectItem>
+                            </SelectContent>
+                        </Select>
 
-                        </select>
                         <InputError :message="form.errors.servings" />
                     </div>
 
@@ -241,11 +311,18 @@ const handleSecondaryImageUpload = (e: Event) => {
                     </div>
             <div v-if="currentStep === 3" class="grid gap-6">
 
+
+
                 <div class="grid gap-2">
-                    <Label for="instructions">Instrukcja</Label>
-                    <textarea id="instructions" v-model="form.instructions" rows="3" placeholder="Opisz wszystkie kroki" class="rounded border px-3 py-2"></textarea>
+                <Textarea
+                    id="instructions"
+                    v-model="form.instructions"
+                    placeholder="Opisz wszystkie kroki"
+                    class="h-24"
+                />
                     <InputError :message="form.errors.instructions" />
                 </div>
+
 
                 <div class="grid gap-2">
                     <Label for="main_image">Zdjęcie główne</Label>
