@@ -5,7 +5,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { Input } from '@/components/ui/input'
 import RecipeCard from '@/components/RecipeCard.vue';
 import ActionCard from '@/components/ActionCard.vue';
-import { Grid, Plus, Clock } from 'lucide-vue-next';
+import { Grid, Plus, Gift } from 'lucide-vue-next';
 import Paginator from '@/components/Paginator.vue';
 
 
@@ -33,7 +33,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="grid gap-4 xl:grid-cols-3">
                 <ActionCard title="Wszystkie kategorie" :icon="Grid" :href="route('categories.index')" class="h-42 w-full" />
                 <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('recipes.create')" class="h-42 w-full" />
-                <ActionCard title="Najnowsze przepisy" :icon="Clock" :href="route('home')" class="h-42 w-full" />
+                <ActionCard title="Wylosuj przepis" :icon="Gift" :href="route('recipes.random')" class="h-42 w-full" />
             </div>
 
             <div class="flex flex-col gap-y-4">

@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('przepisy', [RecipeController::class, 'index'])->name('recipes.index');
+Route::get('przepisy/losowy', [RecipeController::class, 'showRandom'])->name('recipes.random');
 
 
 Route::get('przepisy/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');

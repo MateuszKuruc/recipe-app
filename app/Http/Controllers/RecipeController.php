@@ -97,4 +97,10 @@ class RecipeController extends Controller
     {
 
     }
+
+    public function showRandom(Recipe $recipe)
+    {
+        $random = Recipe::inRandomOrder()->firstOrFail();
+        return redirect()->route('recipes.show', $random->slug);
+    }
 }
