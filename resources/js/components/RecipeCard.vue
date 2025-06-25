@@ -5,21 +5,25 @@ import { Tag } from 'lucide-vue-next';
 
 defineProps({
     recipe: Object,
-    currentSlug: String
+    currentSlug: String,
 });
 </script>
 
 <template>
     <div class="relative flex flex-col space-y-2 bg-white p-4">
-        <Link class="relative">
-            <Link v-if="currentSlug !== recipe.category.slug" :href="route('categories.show', recipe.category.slug)" class="flex gap-2 bg-yellow-500 px-6 py-3 rounded-l-xl absolute right-0 top-5">
+        <div class="relative">
+            <Link
+                v-if="currentSlug !== recipe.category.slug"
+                :href="route('categories.show', recipe.category.slug)"
+                class="absolute top-5 right-0 flex gap-2 rounded-l-xl bg-yellow-500 px-6 py-3"
+            >
                 <Tag />
-            {{ recipe.category.name }}
+                {{ recipe.category.name }}
             </Link>
-        <Link :href="route('recipes.show', recipe.slug)">
-            <img :src="recipe.main_image" alt="Recipe image" class="w-full rounded-xl object-cover" />
-        </Link>
-        </Link>
+            <Link :href="route('recipes.show', recipe.slug)">
+                <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="h-100 w-full rounded-xl object-cover" />
+            </Link>
+        </div>
 
         <RecipeBadge :tags="recipe.tags" />
         <Link :href="route('recipes.show', recipe.slug)" class="w-max">

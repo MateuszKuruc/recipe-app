@@ -32,7 +32,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
             <div class="grid gap-4 xl:grid-cols-3">
                 <ActionCard title="Wszystkie kategorie" :icon="Grid" :href="route('categories.index')" class="h-42 w-full" />
-                <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('home')" class="h-42 w-full" />
+                <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('recipes.create')" class="h-42 w-full" />
                 <ActionCard title="Najnowsze przepisy" :icon="Clock" :href="route('home')" class="h-42 w-full" />
             </div>
 

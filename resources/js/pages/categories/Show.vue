@@ -17,7 +17,7 @@ defineProps({
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Kategoria',
-        href: '/recipes',
+        href: '/kategorie',
     }
 ];
 </script>
