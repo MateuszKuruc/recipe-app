@@ -34,6 +34,11 @@ class Recipe extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

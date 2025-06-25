@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Recipe;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -24,6 +25,7 @@ class RecipeFactory extends Factory
         $title = fake()->sentence(mt_rand(2, 5));
         return [
             'category_id' => Category::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'title' => $title,
             'slug' => Str::slug($title),
             'excerpt' => fake()->text,
