@@ -8,15 +8,16 @@ import RecipeForm from '@/components/RecipeForm.vue';
 defineProps({
     categories: Array,
     tags: Array,
+    recipe: Object
 })
 
 </script>
 
 <template>
     <AppLayout>
-        <AuthBase title="Dodaj nowy przepis" description="Uzupełnij wymagane pola i zapisz swój przepis!">
-            <Head title="Nowy przepis" />
-                <RecipeForm :categories="categories" :tags="tags" />
+        <AuthBase title="Edytuj swój przepis" description="Uzupełnij wymagane pola i zaktualizuj swój przepis!">
+            <Head title="Edytuj przepis" />
+            <RecipeForm :categories="categories" :tags="tags" :recipe="recipe" />
 
         </AuthBase>
     </AppLayout>
