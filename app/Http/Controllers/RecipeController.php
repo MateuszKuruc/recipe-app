@@ -85,7 +85,12 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
-
+        $recipe->load('tags', 'category');
+        return inertia::render('recipes/Edit', [
+            'recipe' => $recipe,
+            'tags' => Tag::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
     public function update(Request $request, Recipe $recipe)

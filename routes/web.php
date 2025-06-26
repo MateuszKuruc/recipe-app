@@ -12,7 +12,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::get('przepisy/dodaj', [RecipeController::class, 'create'])->name('recipes.create');
     Route::post('przepisy', [RecipeController::class, 'store'])->name('recipes.store');
-    //Route::get('recipes/{recipe}/edit', RecipeController::class)->name('recipes.edit');
+    Route::get('przepisy/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
 //Route::patch('recipes/{recipe}', RecipeController::class)->name('recipes.update');
 //Route::delete('recipes/{recipe}', RecipeController::class)->name('recipes.destroy');
 });

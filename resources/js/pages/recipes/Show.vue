@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const page = usePage();
 const authUser = page.props.auth?.user;
-const recipe = page.props.recipe
+const recipe = page.props.recipe;
 </script>
 
 <template>
@@ -116,7 +116,10 @@ const recipe = page.props.recipe
                 <div class="xl:max-w-[400px] max-w-[80%]">
                     <aside class="w-full space-y-8">
                         <!-- Edit Recipe -->
-                        <Button v-if="authUser && recipe.user_id === authUser.id" @click="handleEdit">Edytuj przepis</Button>
+                        <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
+                            <Button >Edytuj przepis</Button>
+                        </Link>
+
 
                         <!-- Categories -->
                         <div>
