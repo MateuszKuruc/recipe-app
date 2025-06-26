@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Recipe;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -57,6 +58,7 @@ class RecipeController extends Controller
 
         $recipe = Recipe::create([
            ...$validated,
+           'user_id' => auth()->id(),
            'main_image' => $mainImagePath,
            'secondary_image' => $secondaryImagePath,
         ]);
@@ -95,7 +97,44 @@ class RecipeController extends Controller
 
     public function update(Request $request, Recipe $recipe)
     {
+        $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title' => 'required|string|max:255',
+            'excerpt' => 'required|string',
+            'ingredients' => 'required|string',
+            'prepare_time' => 'required|integer',
+            'cooking_time' => 'required|integer',
+            'servings' => 'required|integer',
+            'instructions' => 'required|string',
+            'main_image' => 'nullable|image|max:2048',
+            'secondary_image' => 'nullable|image|max:2048',
+            'tags.*' => 'integer|exists:tags,id'
+        ]);
 
+
+        if ($recipe->title != $validated['title']) {
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
+        if ($request->hasFile('main_image')) {
+            $validated['main_image'] = $request->file('main_image')->store('recipes', 'public');
+        } else {
+            unset($validated['main_image']);
+        }
+
+        if ($request->hasFile('secondary_image')) {
+            $validated['secondary_image'] = $request->file('secondary_image')->store('recipes', 'public');
+        } else {
+            unset($validated['secondary_image']);
+        }
+
+        unset($validated['tags']);
+
+        $recipe->update($validated);
+
+        $recipe->tags()->sync($request->tags ?? []);
+
+        return redirect()->route('recipes.show', $recipe->slug)->with('success', 'Przepis został zaktualizowany!');
     }
 
     public function destroy(Recipe $recipe)
