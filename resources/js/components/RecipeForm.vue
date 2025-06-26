@@ -29,22 +29,39 @@ const form = useForm({
     tags: props.recipe?.tags?.map((tag) => tag.id) ?? [],
 });
 
+const mainImagePreview = ref(null);
+const secondaryImagePreview = ref(null);
+
+const isEditing = props.recipe !== undefined && props.recipe !== null;
+
+if (isEditing && props.recipe?.main_image) {
+    mainImagePreview.value = `/storage/${props.recipe.main_image}`;
+}
+if (isEditing && props.recipe?.secondary_image) {
+    secondaryImagePreview.value = `/storage/${props.recipe.secondary_image}`;
+}
+
+
 const submit = () => {
     if (!validateStep3()) {
         return;
     }
 
-    form.post(route('recipes.store'), {
-        forceFormData: true,
-        onFinish: () => form.reset(),
+    const url = isEditing ? route('recipes.update', props.recipe.slug) : route('recipes.store');
+
+    const method = isEditing ? 'put' : 'post';
+
+    const hasFileUploads = form.main_image !== null || form.secondary_image !== null;
+
+    form.post(url, {
+        method: method,
+        forceFormData: hasFileUploads,
+        onSuccess: () => form.reset(),
     });
 };
 
 const currentStep = ref(1);
 const maxStep = 3;
-
-const mainImagePreview = ref(null);
-const secondaryImagePreview = ref(null);
 
 const validateStep1 = () => {
     form.clearErrors();
@@ -98,7 +115,7 @@ const validateStep3 = () => {
         form.setError('instructions', 'Dodaj instrukcję');
         hasError = true;
     }
-    if (!form.main_image) {
+    if (!isEditing && !form.main_image) {
         form.setError('main_image', 'Dodaj zdjęcie dania');
         hasError = true;
     }
@@ -288,18 +305,18 @@ console.log(form.prepare_time);
             <!-- Left-side actions -->
             <div class="flex gap-2">
                 <Link v-if="props.recipe" :href="route('recipes.show', recipe.slug)">
-                    <Button variant="outline">Anuluj</Button>
+                    <Button variant="outline" type="button">Anuluj</Button>
                 </Link>
 
                 <Link v-if="!props.recipe" :href="route('recipes.index')">
-                    <Button variant="outline">Anuluj</Button>
+                    <Button variant="outline" type="button">Anuluj</Button>
                 </Link>
 
-                <Button v-if="currentStep > 1" @click="currentStep--" type="primary">Wstecz</Button>
+                <Button v-if="currentStep > 1" @click="currentStep--" variant="default" type="button">Wstecz</Button>
             </div>
 
             <div class="flex gap-2">
-                <Button v-if="currentStep < maxStep" @click="handleNextStep">Dalej</Button>
+                <Button v-if="currentStep < maxStep" @click="handleNextStep" type="button">Dalej</Button>
                 <Button v-if="currentStep === maxStep" type="submit" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="mr-2 h-4 w-4 animate-spin" />
                     {{ props.recipe ? 'Aktualizuj przepis' : 'Dodaj przepis' }}

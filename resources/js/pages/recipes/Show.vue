@@ -117,7 +117,7 @@ const recipe = page.props.recipe;
                     <aside class="w-full space-y-8">
                         <!-- Edit Recipe -->
                         <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
-                            <Button >Edytuj przepis</Button>
+                            <Button class="mb-6">Edytuj przepis</Button>
                         </Link>
 
 
