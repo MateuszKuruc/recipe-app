@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -139,7 +140,17 @@ class RecipeController extends Controller
 
     public function destroy(Recipe $recipe)
     {
+        if ($recipe->main_image) {
+            Storage::disk('public')->delete($recipe->main_image);
+        }
 
+        if ($recipe->secondary_image) {
+            Storage::disk('public')->delete($recipe->secondary_image);
+        }
+
+        $recipe->delete();
+
+        return redirect()->route('recipes.index')->with('success', 'Przepis został usunięty');
     }
 
     public function showRandom(Recipe $recipe)
