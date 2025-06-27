@@ -14,7 +14,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('przepisy', [RecipeController::class, 'store'])->name('recipes.store');
     Route::get('przepisy/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
     Route::match(['put', 'post'], 'przepisy/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
-//Route::delete('recipes/{recipe}', RecipeController::class)->name('recipes.destroy');
+    Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
 });
 
 Route::get('przepisy', [RecipeController::class, 'index'])->name('recipes.index');
