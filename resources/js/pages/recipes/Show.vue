@@ -5,7 +5,19 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { Clock, Hourglass, Utensils } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button'
+import { useForm } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 
 defineProps({
     recipe: Object,
@@ -20,9 +32,15 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const form = useForm({});
+
 const page = usePage();
 const authUser = page.props.auth?.user;
 const recipe = page.props.recipe;
+
+const deleteRecipe = () => {
+    form.delete(route('recipes.destroy', recipe.slug));
+}
 </script>
 
 <template>
@@ -116,9 +134,35 @@ const recipe = page.props.recipe;
                 <div class="xl:max-w-[400px] max-w-[80%]">
                     <aside class="w-full space-y-8">
                         <!-- Edit Recipe -->
-                        <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
-                            <Button class="mb-6">Edytuj przepis</Button>
-                        </Link>
+                        <div class="flex flex-col gap-3">
+                            <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
+                                <Button class="w-[150px]" type="button" variant="default">Edytuj przepis</Button>
+                            </Link>
+
+                            <AlertDialog v-if="authUser && recipe.user_id === authUser.id">
+                                <AlertDialogTrigger as-child>
+
+                                    <Button variant="destructive" type="button" class="w-[150px]">
+                                        Usuń przepis
+                                    </Button>
+
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Na pewno chcesz usunąć przepis?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Ta akcja jest nieodwracalna. Twój przepis zostanie permanentnie usunięty z bazy danych.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>Anuluj</AlertDialogCancel>
+
+                                        <AlertDialogAction class="bg-destructive hover:bg-destructive/90" @click="deleteRecipe">Potwierdź</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </div>
+
 
 
                         <!-- Categories -->
