@@ -30,7 +30,7 @@ class RecipeController extends Controller
         $recipes = $query
             ->with(['tags', 'category'])
             ->latest()
-            ->paginate(5)
+            ->paginate(6)
             ->withQueryString();
 
         $newestRecipes = Recipe::with(['tags', 'category'])
