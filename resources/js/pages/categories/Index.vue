@@ -26,7 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4 mt-16">
-            <div class="flex flex-col items-center gap-4">
+            <div class="flex flex-col items-center gap-4 border-b pb-6">
                 <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
                 <p class="paragraph max-w-[60ch] text-center">
                     Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
@@ -64,7 +64,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div class="flex flex-col gap-8 py-16 items-center">
-                <div class="flex flex-col items-center gap-4">
+                <div class="flex flex-col items-center gap-4 border-b pb-6 w-full">
                     <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
                     <p class="paragraph max-w-[60ch] text-center">
                         Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
@@ -72,7 +72,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </p>
                 </div>
 
-                <div class="grid auto-rows-min gap-8 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2">
+                <div class="grid auto-rows-min gap-6 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2">
                     <ActionCard
                         class="h-92 w-92"
                         v-for="category in categories"
@@ -88,7 +88,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 
             <div class="space-y-8">
-                <h2 class="pt-6 text-3xl font-bold">Sprawdź też:</h2>
+                <h2 class="pt-6 text-3xl font-bold border-b pb-6">Sprawdź też:</h2>
                 <div class="grid auto-rows-min gap-4 md:grid-cols-2">
                     <ActionCard title="Wszystkie przepisy" :icon="Grid" :href="route('recipes.index')" :count="totalRecipes" />
                     <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />

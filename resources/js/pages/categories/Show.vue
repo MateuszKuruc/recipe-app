@@ -26,7 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Przepisy" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-6">
 
             <div class="flex flex-col gap-y-4">
                 <h2 class="text-2xl font-bold border-b py-4">Wszystkie <span class="text-red-500 lowercase">{{ category.name }}</span></h2>

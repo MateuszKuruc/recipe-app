@@ -52,7 +52,7 @@ watch(searchField, debounce(() => {
             </div>
 
             <div class="flex flex-col gap-y-4">
-                <h2 class="text-2xl font-bold border-b py-4">Wszystkie przepisy</h2>
+                <h2 class="text-2xl font-bold border-b py-6">Wszystkie przepisy</h2>
                 <div class="relative min-h-[100vh] flex-1 grid lg:grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <RecipeCard v-for="recipe in recipes.data" :key="recipe.id"  :recipe="recipe"  />
                 </div>
