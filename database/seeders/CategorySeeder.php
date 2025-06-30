@@ -22,7 +22,8 @@ class CategorySeeder extends Seeder
             'Dania główne',
             'Sałatki',
             'Napoje bezalkoholowe',
-            'Drinki'
+            'Drinki',
+            'Sosy i dodatki'
         ];
 
         foreach ($categories as $category) {
