@@ -56,7 +56,12 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: 'Napoje',
-                href: '/kategorie/napoje',
+                href: '/kategorie/napoje-bezalkoholowe',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Drinki',
+                href: '/kategorie/drinki',
                 icon: LayoutGrid,
             },
         ]

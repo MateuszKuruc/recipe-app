@@ -14,10 +14,6 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('recipes')->get();
 
-        foreach ($categories as $category) {
-            $category->random_recipe_slug = $category->recipes()->inRandomOrder()->value('slug');
-        }
-
         $totalRecipes = Recipe::count();
 
         return inertia::render('categories/Index', [
@@ -33,4 +29,15 @@ class CategoryController extends Controller
             'category' => $category,
         ]);
     }
+
+    public function randomRedirect(string $slug)
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+
+        $recipe = $category->recipes()->inRandomOrder()->first();
+
+        return redirect()->route('recipes.show', $recipe->slug);
+    }
+
+
 }
