@@ -1,9 +1,12 @@
-
 <script setup lang="ts">
+import RecipeCarouselItem from '@/components/RecipeCarouselItem.vue';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
+import Autoplay from 'embla-carousel-autoplay';
+import RecipeCardBlock from '@/components/RecipeCardBlock.vue';
+import LinkButton from '@/components/LinkButton.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,23 +22,70 @@ const user = usePage().props.auth.user;
     <Head title="Recipe App" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                    <span v-if="user">Welcome back, {{ user.name }}</span>
+        <div class="flex flex-1 flex-col gap-8 p-4">
+            <div class="w-full relative overflow-visible px-4">
+                <Carousel
+                    orientation="horizontal"
+                    class="w-full max-w-6xl mx-auto"
+                    :opts="{ loop: true }"
+                    :plugins="[
+      Autoplay({ delay: 2000 }),
+    ]"
+                >
+                    <CarouselContent>
+                        <CarouselItem>
+                            <RecipeCarouselItem
+                                title="Jajeczniczka z boczkiem"
+                                image="/storage/recipes/dDVVzefnoM4XilQVgiQ7psfJB8NaYVSYg2uFxsVx.png"
+                                excerpt="uabubuasf wqewqewqks dahwqeoihwqsda sdaasjkhqwsa dashjsadkw"
+                                link="/recipes"
+                            />
+                        </CarouselItem>
+                    </CarouselContent>
 
-                </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
+                    <!-- Make arrows absolutely positioned -->
+                    <CarouselPrevious class="absolute left-0 top-1/2 -translate-y-1/2 z-10" />
+                    <CarouselNext class="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
+                </Carousel>
             </div>
-            <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                <PlaceholderPattern />
-            </div>
+
+
+            <!-- Latest Recipes Section -->
+            <section class="w-full max-w-6xl mx-auto px-4">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 sm:gap-0">
+                    <h2 class="text-3xl font-extrabold">Latest Recipes</h2>
+                    <LinkButton
+                        href="/recipes"
+                        class="border px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition"
+                    >
+                        Browse All
+                    </LinkButton>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <RecipeCardBlock
+                        image="/storage/recipes/sandwich.jpg"
+                        title="Tenetur officia animi voluptates ab ut."
+                        subtitle="Category title"
+                    />
+                    <RecipeCardBlock
+                        image="/storage/recipes/wings.jpg"
+                        title="Eos nemo laboriosam dolores possimus eaque enim."
+                        subtitle="Category title"
+                    />
+                    <RecipeCardBlock
+                        image="/storage/recipes/pita.jpg"
+                        title="Quia aliquam recusandae repellendus veritatis vitae atque voluptas."
+                        subtitle="Category title"
+                    />
+                    <RecipeCardBlock
+                        image="/storage/recipes/wings.jpg"
+                        title="Saepe odit qui expedita voluptatum et aut optio."
+                        subtitle="Category title"
+                    />
+                </div>
+            </section>
         </div>
     </AppLayout>
 </template>
+

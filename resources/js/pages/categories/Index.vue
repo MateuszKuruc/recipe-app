@@ -34,19 +34,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </p>
             </div>
 
-            <div class="flex w-full flex-col items-center justify-center">
-                <h2 class="p-8 text-3xl font-bold">Najpopularniejsze kategorie</h2>
+            <div class="w-full relative overflow-visible px-4">
                 <Carousel
                     orientation="horizontal"
-                    class="w-[980px]"
-                    :opts="{
-                        loop: true,
-                    }"
+                    class="w-full max-w-6xl mx-auto"
+                    :opts="{ loop: true }"
                     :plugins="[
-                        Autoplay({
-                            delay: 2000,
-                        }),
-                    ]"
+      Autoplay({ delay: 2000 }),
+    ]"
                 >
                     <CarouselContent>
                         <CarouselItem>
@@ -58,10 +53,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                             />
                         </CarouselItem>
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+
+                    <!-- Make arrows absolutely positioned -->
+                    <CarouselPrevious class="absolute left-0 top-1/2 -translate-y-1/2 z-10" />
+                    <CarouselNext class="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
                 </Carousel>
             </div>
+
 
             <div class="flex flex-col gap-8 py-16 items-center">
                 <div class="flex flex-col items-center gap-4 border-b pb-6 w-full">
