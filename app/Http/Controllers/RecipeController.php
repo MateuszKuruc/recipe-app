@@ -13,12 +13,29 @@ use Inertia\Inertia;
 
 class RecipeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $recipes = Recipe::with('tags', 'category')->latest()->paginate(5);
+        $query = Recipe::query();
 
-        return inertia::render('recipes/Index', [
+        if ($request->filled('searchField')) {
+            $search = $request->input('searchField');
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('excerpt', 'like', "%{$search}%")
+                    ->orWhere('ingredients', 'like', "%{$search}%")
+                    ->orWhere('instructions', 'like', "%{$search}%");
+            });
+        }
+
+        $recipes = $query
+            ->with(['tags', 'category'])
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+
+        return inertia('recipes/Index', [
             'recipes' => $recipes,
+            'searchField' => $request->input('searchField', ''),
         ]);
     }
 

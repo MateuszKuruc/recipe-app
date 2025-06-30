@@ -7,6 +7,9 @@ import RecipeCard from '@/components/RecipeCard.vue';
 import ActionCard from '@/components/ActionCard.vue';
 import { Grid, Plus, Gift } from 'lucide-vue-next';
 import Paginator from '@/components/Paginator.vue';
+import { ref, watch } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+import { debounce } from 'lodash';
 
 
 defineProps({
@@ -19,6 +22,18 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/recipes',
     }
 ];
+
+const page = usePage();
+
+const searchField = ref(page.props.searchField || '');
+
+const url = route('recipes.index');
+
+watch(searchField, debounce(() => {
+    router.get(url, {searchField: searchField.value}, {preserveState: true, preserveScroll: true, only: ['recipes']})
+}, 300));
+
+
 </script>
 
 <template>
@@ -27,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4 max-w-[1440px] m-auto">
             <div class="flex flex-col items-center py-16">
-                <Input placeholder="Search..." class="w-[400px] h-12 rounded-xl" />
+                <Input v-model="searchField" placeholder="Szukaj przepisów..." class="w-[400px] h-12 rounded-xl" />
             </div>
 
             <div class="grid gap-4 xl:grid-cols-3">
