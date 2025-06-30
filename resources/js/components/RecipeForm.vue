@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
+import LinkButton from '@/components/LinkButton.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Link, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { ref } from 'vue';
 
@@ -40,7 +41,6 @@ if (isEditing && props.recipe?.main_image) {
 if (isEditing && props.recipe?.secondary_image) {
     secondaryImagePreview.value = `/storage/${props.recipe.secondary_image}`;
 }
-
 
 const submit = () => {
     if (!validateStep3()) {
@@ -304,13 +304,9 @@ console.log(form.prepare_time);
         <div class="mt-6 flex items-center justify-between">
             <!-- Left-side actions -->
             <div class="flex gap-2">
-                <Link v-if="props.recipe" :href="route('recipes.show', recipe.slug)">
-                    <Button variant="outline" type="button">Anuluj</Button>
-                </Link>
+                <LinkButton variant="outline" v-if="props.recipe" :href="route('recipes.show', recipe.slug)"> Anuluj </LinkButton>
 
-                <Link v-if="!props.recipe" :href="route('recipes.index')">
-                    <Button variant="outline" type="button">Anuluj</Button>
-                </Link>
+                <LinkButton variant="outline" v-if="!props.recipe" :href="route('recipes.index')"> Anuluj </LinkButton>
 
                 <Button v-if="currentStep > 1" @click="currentStep--" variant="default" type="button">Wstecz</Button>
             </div>
