@@ -34,6 +34,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     :image="category.image"
                     :href="route('categories.show', category.slug)"
                     :count="category.recipes_count"
+                    :random-href="category.random_recipe_slug"
                 />
             </div>
 

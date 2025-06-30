@@ -13,6 +13,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::withCount('recipes')->get();
+
+        foreach ($categories as $category) {
+            $category->random_recipe_slug = $category->recipes()->inRandomOrder()->value('slug');
+        }
+
         $totalRecipes = Recipe::count();
 
         return inertia::render('categories/Index', [
