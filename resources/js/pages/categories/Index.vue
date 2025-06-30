@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import ActionCard from '@/components/ActionCard.vue';
+import RecipeCarouselItem from '@/components/RecipeCarouselItem.vue';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import Autoplay from 'embla-carousel-autoplay';
 import { Grid } from 'lucide-vue-next';
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from '@/components/ui/carousel'
-import Autoplay from 'embla-carousel-autoplay'
-import LinkButton from '@/components/LinkButton.vue';
-import RecipeCarouselItem from '@/components/RecipeCarouselItem.vue';
 
 defineProps({
     categories: Array,
@@ -32,41 +25,70 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Kategorie" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
-            <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
-            <p class="paragraph">Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki losowym przepisom z każdej kategorii</p>
-            <div class="flex flex-col w-full justify-center items-center">
-                <Carousel orientation="horizontal" class="max-w-3xl" :opts="{
-                    loop: true,
-                }" :plugins="[Autoplay({
-                delay: 2000
-                })]">
+        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4 mt-16">
+            <div class="flex flex-col items-center gap-4">
+                <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
+                <p class="paragraph max-w-[60ch] text-center">
+                    Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
+                    kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategorii
+                </p>
+            </div>
+
+            <div class="flex w-full flex-col items-center justify-center">
+                <h2 class="p-8 text-3xl font-bold">Najpopularniejsze kategorie</h2>
+                <Carousel
+                    orientation="horizontal"
+                    class="w-[980px]"
+                    :opts="{
+                        loop: true,
+                    }"
+                    :plugins="[
+                        Autoplay({
+                            delay: 2000,
+                        }),
+                    ]"
+                >
                     <CarouselContent>
                         <CarouselItem>
-                           <RecipeCarouselItem title="Jajeczniczka z boczkiem" image="/storage/recipes/dDVVzefnoM4XilQVgiQ7psfJB8NaYVSYg2uFxsVx.png" excerpt="uabubuasf wqewqewqks dahwqeoihwqsda sdaasjkhqwsa dashjsadkw" link="/recipes" />
+                            <RecipeCarouselItem
+                                title="Jajeczniczka z boczkiem"
+                                image="/storage/recipes/dDVVzefnoM4XilQVgiQ7psfJB8NaYVSYg2uFxsVx.png"
+                                excerpt="uabubuasf wqewqewqks dahwqeoihwqsda sdaasjkhqwsa dashjsadkw"
+                                link="/recipes"
+                            />
                         </CarouselItem>
-
-
                     </CarouselContent>
                     <CarouselPrevious />
                     <CarouselNext />
                 </Carousel>
             </div>
 
-            <div class="grid auto-rows-min gap-3 md:grid-cols-2">
-                <ActionCard
-                    class="h-42 w-full"
-                    v-for="category in categories"
-                    :title="category.name"
-                    :image="category.image"
-                    :href="route('categories.show', category.slug)"
-                    :random-href="route('categories.random', category.slug)"
-                    :count="category.recipes_count"
-                />
+            <div class="flex flex-col gap-8 py-16 items-center">
+                <div class="flex flex-col items-center gap-4">
+                    <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
+                    <p class="paragraph max-w-[60ch] text-center">
+                        Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
+                        kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategorii
+                    </p>
+                </div>
+
+                <div class="grid auto-rows-min gap-8 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2">
+                    <ActionCard
+                        class="h-92 w-92"
+                        v-for="category in categories"
+                        :title="category.name"
+                        :image="category.image"
+                        :href="route('categories.show', category.slug)"
+                        :random-href="route('categories.random', category.slug)"
+                        :count="category.recipes_count"
+                    />
+                </div>
             </div>
 
+
+
             <div class="space-y-8">
-                <h2 class="text-3xl pt-6 font-bold">Sprawdź też:</h2>
+                <h2 class="pt-6 text-3xl font-bold">Sprawdź też:</h2>
                 <div class="grid auto-rows-min gap-4 md:grid-cols-2">
                     <ActionCard title="Wszystkie przepisy" :icon="Grid" :href="route('recipes.index')" :count="totalRecipes" />
                     <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />

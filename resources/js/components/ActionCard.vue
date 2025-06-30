@@ -31,8 +31,7 @@ defineProps<Props>();
             <span class="text-2xl font-bold text-red-500 hover:text-red-600">{{ title }} </span>
         </Link>
 
-        <!-- Separate link (doesn't nest inside outer Link) -->
-        <div class="absolute bottom-3 left-1/2 -translate-x-1/2">
+            <div class="absolute bottom-1/8 left-1/2 -translate-x-1/2 w-max">
             <LinkButton variant="default" v-if="randomHref" :href="randomHref">Wylosuj przepis</LinkButton>
         </div>
     </div>
