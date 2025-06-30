@@ -23,6 +23,43 @@ const mainNavItems: NavItem[] = [
         title: 'Kategorie',
         href: '/kategorie',
         icon: LayoutGrid,
+        children: [
+            {
+                title: 'Śniadania',
+                href: '/kategorie/sniadania',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Przekąski',
+                href: '/kategorie/przekaski',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Desery',
+                href: '/kategorie/desery',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Zupy',
+                href: '/kategorie/zupy',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Dania główne',
+                href: '/kategorie/dania-glowne',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Sałatki',
+                href: '/kategorie/salatki',
+                icon: LayoutGrid,
+            },
+            {
+                title: 'Napoje',
+                href: '/kategorie/napoje',
+                icon: LayoutGrid,
+            },
+        ]
     }
 ];
 
