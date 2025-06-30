@@ -64,6 +64,11 @@ const mainNavItems: NavItem[] = [
                 href: '/kategorie/drinki',
                 icon: LayoutGrid,
             },
+            {
+                title: 'Sosy i dodatki',
+                href: '/kategorie/sosy-i-dodatki',
+                icon: LayoutGrid,
+            },
         ]
     }
 ];
