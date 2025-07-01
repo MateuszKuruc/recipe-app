@@ -8,12 +8,18 @@ import Autoplay from 'embla-carousel-autoplay';
 import RecipeCardBlock from '@/components/RecipeCardBlock.vue';
 import LinkButton from '@/components/LinkButton.vue';
 
+defineProps({
+    newestRecipes: Array
+})
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Strona główna',
         href: '/',
     },
 ];
+
+const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
 
 const user = usePage().props.auth.user;
 </script>
@@ -28,24 +34,22 @@ const user = usePage().props.auth.user;
                     orientation="horizontal"
                     class="w-full max-w-6xl mx-auto"
                     :opts="{ loop: true }"
-                    :plugins="[
-      Autoplay({ delay: 2000 }),
-    ]"
+                    :plugins="[autoplay]"
                 >
                     <CarouselContent>
-                        <CarouselItem>
+                        <CarouselItem v-for="newRecipe in newestRecipes" :key="newRecipe.id">
                             <RecipeCarouselItem
-                                title="Jajeczniczka z boczkiem"
-                                image="/storage/recipes/dDVVzefnoM4XilQVgiQ7psfJB8NaYVSYg2uFxsVx.png"
-                                excerpt="uabubuasf wqewqewqks dahwqeoihwqsda sdaasjkhqwsa dashjsadkw"
-                                link="/recipes"
+                                :title="newRecipe.title"
+                                :image="`/storage/${newRecipe.main_image}`"
+                                :excerpt="newRecipe.excerpt"
+                                :link="route('recipes.show', newRecipe.slug)"
                             />
                         </CarouselItem>
                     </CarouselContent>
 
                     <!-- Make arrows absolutely positioned -->
-                    <CarouselPrevious class="absolute left-0 top-1/2 -translate-y-1/2 z-10" />
-                    <CarouselNext class="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
+                    <CarouselPrevious @click="autoplay.reset()" class="absolute left-0 top-1/2 -translate-y-1/2 z-10" />
+                    <CarouselNext @click="autoplay.reset()" class="absolute right-0 top-1/2 -translate-y-1/2 z-10" />
                 </Carousel>
             </div>
 
