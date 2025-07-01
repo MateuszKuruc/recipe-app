@@ -33,15 +33,9 @@ class RecipeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        $newestRecipes = Recipe::with(['tags', 'category'])
-            ->latest()
-            ->take(3)
-            ->get();
-
         return inertia('recipes/Index', [
             'recipes' => $recipes,
             'searchField' => $request->input('searchField', ''),
-            'newestRecipes' => $newestRecipes,
         ]);
     }
 
