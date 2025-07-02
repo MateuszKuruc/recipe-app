@@ -12,6 +12,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::get('przepisy/dodaj', [RecipeController::class, 'create'])->name('recipes.create');
     Route::post('przepisy', [RecipeController::class, 'store'])->name('recipes.store');
+    Route::post('przepisy/{recipe}/ulubione', [RecipeController::class, 'favorite'])->name('recipes.favorite');
+    Route::delete('przepisy/{recipe}/ulubione', [RecipeController::class, 'unfavorite'])->name('recipes.unfavorite');
     Route::get('przepisy/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
     Route::match(['put', 'post'], 'przepisy/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
     Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
