@@ -14,7 +14,7 @@ defineProps<Props>();
 <template>
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
-            <SidebarMenu class="flex flex-col gap-3 px-2.5 py-6 rounded-xl bg-orange-200">
+            <SidebarMenu class="flex flex-col gap-3 px-2 py-4 rounded-xl  border border-gray-400 mb-6">
                 <SidebarMenuItem v-for="item in items" :key="item.title">
                     <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100" as-child>
                         <Link :href="item.href">

@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Beef, Beer, Coffee, Donut, EggFried, Heart, House, LayoutGrid, Milk, Plus, Popcorn, Salad, Scroll, Soup } from 'lucide-vue-next';
+import { Beef, Beer, Coffee, Donut, EggFried, Heart, House, LayoutGrid, Milk, Plus, Popcorn, Salad, Scroll, Search, Soup } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const page = usePage();
@@ -87,6 +87,11 @@ const footerNavItems: NavItem[] = user
               title: 'Ulubione przepisy',
               href: '/przepisy/ulubione',
               icon: Heart,
+          },
+          {
+              title: 'Znajdź przepis',
+              href: '/przepisy/',
+              icon: Search,
           },
       ]
     : [];
