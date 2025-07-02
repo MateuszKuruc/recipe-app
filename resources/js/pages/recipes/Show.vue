@@ -1,12 +1,5 @@
 <script setup lang="ts">
 import RecipeBadge from '@/components/RecipeBadge.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Clock, Hourglass, Utensils, Heart } from 'lucide-vue-next';
-import { Button } from '@/components/ui/button'
-import { useForm } from '@inertiajs/vue3';
-import { usePage } from '@inertiajs/vue3';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -17,7 +10,13 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Clock, Heart, Hourglass, Utensils } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
 
 defineProps({
     recipe: Object,
@@ -33,14 +32,52 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({});
-
 const page = usePage();
+
 const authUser = page.props.auth?.user;
-const recipe = page.props.recipe;
+const recipe = ref({...page.props.recipe });
+
+const favoritedBy = ref(recipe.value.favorited_by || null);
+
+const isFavorited = computed(() => {
+    return authUser && favoritedBy.value.some(user => user.id === authUser.id);
+});
+
+const toggleFavorite = () => {
+    if (!authUser) return;
+
+    if (isFavorited.value) {
+        // Optimistic update: remove user from local list
+        favoritedBy.value = favoritedBy.value.filter(
+            user => user.id !== authUser.id
+        );
+
+        form.delete(route('recipes.unfavorite', recipe.value.slug), {
+            preserveScroll: true,
+            onError: () => {
+                // Rollback if server fails
+                favoritedBy.value.push(authUser);
+            },
+        });
+    } else {
+        // Optimistic update: add user to local list
+        favoritedBy.value.push(authUser);
+
+        form.post(route('recipes.favorite', recipe.value.slug), {
+            preserveScroll: true,
+            onError: () => {
+                // Rollback if server fails
+                favoritedBy.value = favoritedBy.value.filter(
+                    user => user.id !== authUser.id
+                );
+            },
+        });
+    }
+};
 
 const deleteRecipe = () => {
     form.delete(route('recipes.destroy', recipe.slug));
-}
+};
 </script>
 
 <template>
@@ -52,30 +89,30 @@ const deleteRecipe = () => {
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
             </div>
 
-            <div class="2xl:grid xl:grid-cols-[1fr_400px] gap-20">
+            <div class="gap-20 xl:grid-cols-[1fr_400px] 2xl:grid">
                 <div class="m-auto max-w-[700px] pb-16 md:pb-16">
-                    <div class="flex flex-col gap-y-2">
-                        <p>
-                            Kategoria:
-                            <Link :href="route('categories.index')" class="text-orange-500 hover:text-orange-600 hover:underline"
-                                >{{ recipe.category.name }}
-                            </Link>
-                        </p>
-                        <div class="flex py-4">
-                            <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
-                            <Button variant="default">
-                                Dodaj do ulubionych
-                            <Heart  />
-
+                    <div class="flex flex-col gap-y-6 md:gap-y-4">
+                        <div class="flex items-center justify-between">
+                            <p>
+                                Kategoria:
+                                <Link :href="route('categories.index')" class="text-orange-500 hover:text-orange-600 hover:underline"
+                                    >{{ recipe.category.name }}
+                                </Link>
+                            </p>
+                            <Button :disabled="form.processing" class="rounded-xl border border-gray-300 p-3 hover:cursor-pointer" variant="outline" @click="toggleFavorite" :aria-label="isFavorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'">
+                                <Heart :class="isFavorited ? 'fill-orange-500' : 'stroke-current'" />
                             </Button>
+
                         </div>
+
+                        <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
                     </div>
 
-                    <div class="my-8 md:grid md:grid-cols-3 rounded-xl border p-6 flex flex-col gap-6">
-                        <div class="flex flex-col items-center md:gap-4 gap-2">
+                    <div class="my-8 flex flex-col gap-6 rounded-xl border border-gray-300 p-6 md:grid md:grid-cols-3">
+                        <div class="flex flex-col items-center gap-2 md:gap-4">
                             <div class="flex items-center gap-2">
                                 <Utensils />
                                 <span class="text-lg">Porcja</span>
@@ -83,7 +120,7 @@ const deleteRecipe = () => {
                             dla {{ recipe.servings }} osób
                         </div>
 
-                        <div class="flex flex-col items-center md:gap-4 gap-2">
+                        <div class="flex flex-col items-center gap-2 md:gap-4">
                             <div class="flex items-center gap-2">
                                 <Hourglass />
                                 <span class="text-lg">Przygotowanie</span>
@@ -91,7 +128,7 @@ const deleteRecipe = () => {
                             {{ recipe.prepare_time }} minut
                         </div>
 
-                        <div class="flex flex-col items-center md:gap-4 gap-2">
+                        <div class="flex flex-col items-center gap-2 md:gap-4">
                             <div class="flex items-center gap-2">
                                 <Clock />
                                 <span class="text-lg">Gotowanie</span>
@@ -100,8 +137,8 @@ const deleteRecipe = () => {
                         </div>
                     </div>
 
-                    <div class="mb-16 grid grid-cols-2 md:grid-cols-4  overflow-hidden rounded-xl border text-center">
-                        <a href="#skladniki" class="border-r p-4 hover:bg-primary/60">Składniki</a>
+                    <div class="mb-16 grid grid-cols-2 overflow-hidden rounded-xl border border-gray-300 text-center md:grid-cols-4">
+                        <a href="#skladniki" class="border-r p-4 hover:bg-sidebar-accent">Składniki</a>
                         <a href="#przygotowanie" class="border-r p-4 hover:bg-primary/60">Przygotowanie</a>
                         <a href="#uwagi" class="border-r p-4 hover:bg-primary/60">Uwagi</a>
                         <a href="#inspiracje" class="p-4 hover:bg-primary/60">Inspiracje</a>
@@ -138,7 +175,7 @@ const deleteRecipe = () => {
                     </div>
                 </div>
                 <!-- Right sidebar -->
-                <div class="max-w-[700px] mx-auto">
+                <div class="mx-auto max-w-[700px] border-gray-300 2xl:border-l 2xl:pl-8">
                     <aside class="w-full space-y-8">
                         <!-- Edit Recipe -->
                         <div class="flex flex-col gap-3">
@@ -148,11 +185,7 @@ const deleteRecipe = () => {
 
                             <AlertDialog v-if="authUser && recipe.user_id === authUser.id">
                                 <AlertDialogTrigger as-child>
-
-                                    <Button variant="destructive" type="button" class="w-[150px]">
-                                        Usuń przepis
-                                    </Button>
-
+                                    <Button variant="destructive" type="button" class="w-[150px]"> Usuń przepis </Button>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
@@ -164,20 +197,20 @@ const deleteRecipe = () => {
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>Anuluj</AlertDialogCancel>
 
-                                        <AlertDialogAction class="bg-destructive hover:bg-destructive/90" @click="deleteRecipe">Potwierdź</AlertDialogAction>
+                                        <AlertDialogAction class="bg-destructive hover:bg-destructive/90" @click="deleteRecipe"
+                                            >Potwierdź</AlertDialogAction
+                                        >
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
                         </div>
 
-
-
                         <!-- Categories -->
                         <div>
-                            <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Kategorie</h3>
+                            <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Kategorie</h3>
                             <ul class="space-y-1 text-sm">
                                 <li v-for="category in categories" :key="category.id">
-                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-red-600 hover:underline">
+                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-orange-600 hover:underline">
                                         {{ category.name }} <span class="text-gray-400">({{ category.recipes_count }})</span>
                                     </Link>
                                 </li>
@@ -186,11 +219,11 @@ const deleteRecipe = () => {
 
                         <!-- Related Recipes -->
                         <div>
-                            <h3 class="mb-2 border-b pb-1 text-lg font-semibold">Podobne przepisy</h3>
-                            <ul class="space-y-8 flex flex-col ">
+                            <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Podobne przepisy</h3>
+                            <ul class="flex flex-col space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
                                     <img :src="recipe.main_image" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
-                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-red-500 hover:text-red-600">
+                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-orange-500 hover:text-orange-600">
                                         {{ recipe.title }}
                                     </Link>
                                 </li>
