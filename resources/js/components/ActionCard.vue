@@ -24,11 +24,12 @@ defineProps<Props>();
         <!-- Outer clickable card -->
         <Link
             :href="href"
-            class="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-200 p-4 text-center shadow-sm transition hover:bg-gray-50 hover:shadow-md"
+            class="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-200 p-4 text-center shadow-sm transition hover:bg-secondary  hover:shadow-md"
+
         >
             <component v-if="icon" :is="icon" class="mb-2 h-6 w-6 text-gray-600" />
             <span v-if="count" class="font-bold">Przepisy: {{ count }}</span>
-            <span class="text-2xl font-bold text-red-500 hover:text-red-600">{{ title }} </span>
+            <span class="text-2xl font-bold text-orange-500 hover:text-orange-600">{{ title }} </span>
         </Link>
 
             <div class="absolute bottom-1/8 left-1/2 -translate-x-1/2 w-max">

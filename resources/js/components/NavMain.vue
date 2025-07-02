@@ -42,7 +42,7 @@ const page = usePage();
                         </Link>
                     </SidebarMenuButton>
 
-                    <SidebarMenu class="ml-4 border-l border-muted pl-2">
+                    <SidebarMenu class="pl-6">
                         <SidebarMenuItem
                             v-for="child in item.children"
                             :key="child.title"

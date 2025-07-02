@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="relative flex flex-col space-y-2 bg-white p-4">
+    <div class="relative flex flex-col space-y-2 p-4 border-b">
         <div class="relative">
             <Link
                 v-if="currentSlug !== recipe.category.slug"
@@ -27,8 +27,8 @@ defineProps({
 
         <RecipeBadge :tags="recipe.tags" />
         <Link :href="route('recipes.show', recipe.slug)" class="w-max">
-            <h2 class="text-lg font-semibold text-red-600">{{ recipe.title }}</h2>
+            <h2 class="text-lg font-semibold text-orange-600 sentence-case">{{ recipe.title }}</h2>
         </Link>
-        <p class="paragraph">{{ recipe.excerpt }}</p>
+        <p class="paragraph sentence-case">{{ recipe.excerpt }}</p>
     </div>
 </template>

@@ -6,7 +6,7 @@
             class="w-full h-48 object-cover"
         />
         <div class="mt-4">
-            <h3 class="text-red-600 text-lg font-bold leading-snug">
+            <h3 class="text-orange-500 text-lg font-bold leading-snug">
                 {{ title }}
             </h3>
             <p class="text-sm text-gray-600 mt-1">{{ subtitle }}</p>

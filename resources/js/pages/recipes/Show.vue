@@ -57,11 +57,11 @@ const deleteRecipe = () => {
                     <div class="flex flex-col gap-y-2">
                         <p>
                             Kategoria:
-                            <Link :href="route('categories.index')" class="text-blue-500 hover:text-blue-600 hover:underline"
+                            <Link :href="route('categories.index')" class="text-orange-500 hover:text-orange-600 hover:underline"
                                 >{{ recipe.category.name }}
                             </Link>
                         </p>
-                        <h2 class="w-[600px] text-4xl font-bold text-red-500">{{ recipe.title }}</h2>
+                        <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
@@ -94,10 +94,10 @@ const deleteRecipe = () => {
                     </div>
 
                     <div class="mb-16 grid grid-cols-4 overflow-hidden rounded-xl border text-center">
-                        <a href="#skladniki" class="border-r p-4 hover:bg-gray-50">Składniki</a>
-                        <a href="#przygotowanie" class="border-r p-4 hover:bg-gray-50">Przygotowanie</a>
-                        <a href="#uwagi" class="border-r p-4 hover:bg-gray-50">Uwagi</a>
-                        <a href="#inspiracje" class="p-4 hover:bg-gray-50">Inspiracje</a>
+                        <a href="#skladniki" class="border-r p-4 hover:bg-primary/60">Składniki</a>
+                        <a href="#przygotowanie" class="border-r p-4 hover:bg-primary/60">Przygotowanie</a>
+                        <a href="#uwagi" class="border-r p-4 hover:bg-primary/60">Uwagi</a>
+                        <a href="#inspiracje" class="p-4 hover:bg-primary/60">Inspiracje</a>
                     </div>
                     <div class="space-y-8">
                         <div class="flex flex-col gap-y-2" id="skladniki">
