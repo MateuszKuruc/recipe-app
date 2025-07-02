@@ -13,12 +13,14 @@ defineProps<Props>();
 <template>
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu class="flex flex-col gap-2 py-6">
                 <SidebarMenuItem v-for="item in items" :key="item.title">
                     <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100" as-child>
-                        <a :href="item.href" target="_blank" rel="noopener noreferrer">
-                            <component :is="item.icon" />
-                            <span>{{ item.title }}</span>
+                        <a :href="item.href" rel="noopener noreferrer">
+                            <div class="h-6 w-6 shrink-0">
+                                <component :is="item.icon" class="h-full w-full" />
+                            </div>
+                            <span class="text-xl">{{ item.title }}</span>
                         </a>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

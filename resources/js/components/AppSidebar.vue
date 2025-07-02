@@ -4,20 +4,23 @@ import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Plus } from 'lucide-vue-next';
+import { Link, usePage } from '@inertiajs/vue3';
+import { Beef, Beer, Coffee, Donut, EggFried, Heart, House, LayoutGrid, Milk, Plus, Popcorn, Salad, Scroll, Soup } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+
+const page = usePage();
+const user = page.props.auth.user;
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Strona główna',
         href: '/',
-        icon: LayoutGrid,
+        icon: House,
     },
     {
         title: 'Przepisy',
         href: '/przepisy',
-        icon: LayoutGrid,
+        icon: Scroll,
     },
     {
         title: 'Kategorie',
@@ -27,65 +30,70 @@ const mainNavItems: NavItem[] = [
             {
                 title: 'Śniadania',
                 href: '/kategorie/sniadania',
-                icon: LayoutGrid,
+                icon: EggFried,
             },
             {
                 title: 'Przekąski',
                 href: '/kategorie/przekaski',
-                icon: LayoutGrid,
+                icon: Popcorn,
             },
             {
                 title: 'Desery',
                 href: '/kategorie/desery',
-                icon: LayoutGrid,
+                icon: Donut,
             },
             {
                 title: 'Zupy',
                 href: '/kategorie/zupy',
-                icon: LayoutGrid,
+                icon: Soup,
             },
             {
                 title: 'Dania główne',
                 href: '/kategorie/dania-glowne',
-                icon: LayoutGrid,
+                icon: Beef,
             },
             {
                 title: 'Sałatki',
                 href: '/kategorie/salatki',
-                icon: LayoutGrid,
+                icon: Salad,
             },
             {
                 title: 'Napoje',
                 href: '/kategorie/napoje-bezalkoholowe',
-                icon: LayoutGrid,
+                icon: Coffee,
             },
             {
                 title: 'Drinki',
                 href: '/kategorie/drinki',
-                icon: LayoutGrid,
+                icon: Beer,
             },
             {
                 title: 'Sosy i dodatki',
                 href: '/kategorie/sosy-i-dodatki',
-                icon: LayoutGrid,
+                icon: Milk,
             },
-        ]
-    }
-];
-
-const footerNavItems: NavItem[] = [
-
-    {
-        title: 'Dodaj nowy przepis',
-        href: '/przepisy/dodaj',
-        icon: Plus,
+        ],
     },
-
 ];
+
+const footerNavItems: NavItem[] = user
+    ? [
+          {
+              title: 'Dodaj nowy przepis',
+              href: '/przepisy/dodaj',
+              icon: Plus,
+          },
+          {
+              title: 'Ulubione przepisy',
+              href: '/przepisy/ulubione',
+              icon: Heart,
+          },
+      ]
+    : [];
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="floating">
+    <Sidebar collapsible="icon" variant="inset">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
