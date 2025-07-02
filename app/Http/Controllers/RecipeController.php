@@ -23,7 +23,10 @@ class RecipeController extends Controller
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('excerpt', 'like', "%{$search}%")
                     ->orWhere('ingredients', 'like', "%{$search}%")
-                    ->orWhere('instructions', 'like', "%{$search}%");
+                    ->orWhere('instructions', 'like', "%{$search}%")
+                    ->orWhereHas('tags', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
             });
         }
 
