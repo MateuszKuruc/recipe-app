@@ -24,9 +24,14 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $category->load(['recipes.category', 'recipes.tags']);
+        $recipes = $category->recipes()
+            ->with(['category', 'tags'])
+            ->latest()
+            ->paginate(6);
+
         return Inertia::render('categories/Show', [
             'category' => $category,
+            'recipes' => $recipes,
         ]);
     }
 

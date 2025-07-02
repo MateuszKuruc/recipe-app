@@ -11,6 +11,7 @@ import Paginator from '@/components/Paginator.vue';
 
 const props = defineProps({
     category: Object,
+    recipes: Object,
 })
 
 
@@ -31,10 +32,10 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="flex flex-col gap-y-4">
                 <h2 class="text-2xl font-bold border-b py-4">Wszystkie <span class="text-orange-500 lowercase">{{ category.name }}</span></h2>
                 <div class="relative min-h-[100vh] flex-1 grid grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <RecipeCard v-for="recipe in category.recipes" :key="recipe.id"  :recipe="recipe" :currentSlug="recipe.category.slug"  />
+                    <RecipeCard v-for="recipe in recipes.data" :key="recipe.id"  :recipe="recipe" :currentSlug="recipe.category.slug"  />
 
                 </div>
-<!--                <Paginator :recipes="recipes" />-->
+                <Paginator :recipes="recipes" />
             </div>
 
         </div>
