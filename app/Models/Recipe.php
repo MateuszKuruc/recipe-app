@@ -44,4 +44,9 @@ class Recipe extends Model
     {
         return 'slug';
     }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }
