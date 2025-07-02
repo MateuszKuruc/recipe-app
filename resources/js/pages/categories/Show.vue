@@ -9,14 +9,14 @@ import { Grid, Plus, Clock } from 'lucide-vue-next';
 import Paginator from '@/components/Paginator.vue';
 
 
-defineProps({
+const props = defineProps({
     category: Object,
 })
 
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Kategoria',
+        title: props.category?.name || '',
         href: '/kategorie',
     }
 ];
