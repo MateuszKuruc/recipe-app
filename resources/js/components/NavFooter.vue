@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
+import { Link } from '@inertiajs/vue3';
 
 interface Props {
     items: NavItem[];
@@ -13,15 +14,15 @@ defineProps<Props>();
 <template>
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
-            <SidebarMenu class="flex flex-col gap-2 py-6">
+            <SidebarMenu class="flex flex-col gap-3 px-2.5 py-6 rounded-xl bg-orange-200">
                 <SidebarMenuItem v-for="item in items" :key="item.title">
                     <SidebarMenuButton class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100" as-child>
-                        <a :href="item.href" rel="noopener noreferrer">
+                        <Link :href="item.href">
                             <div class="h-6 w-6 shrink-0">
                                 <component :is="item.icon" class="h-full w-full" />
                             </div>
                             <span class="text-xl">{{ item.title }}</span>
-                        </a>
+                        </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>
