@@ -3,7 +3,7 @@ import RecipeBadge from '@/components/RecipeBadge.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Clock, Hourglass, Utensils } from 'lucide-vue-next';
+import { Clock, Hourglass, Utensils, Heart } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button'
 import { useForm } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
@@ -52,7 +52,7 @@ const deleteRecipe = () => {
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
             </div>
 
-            <div class="md:grid xl:grid-cols-[1fr_400px] gap-20">
+            <div class="2xl:grid xl:grid-cols-[1fr_400px] gap-20">
                 <div class="m-auto max-w-[700px] pb-16 md:pb-16">
                     <div class="flex flex-col gap-y-2">
                         <p>
@@ -61,14 +61,21 @@ const deleteRecipe = () => {
                                 >{{ recipe.category.name }}
                             </Link>
                         </p>
-                        <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
+                        <div class="flex py-4">
+                            <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
+                            <Button variant="default">
+                                Dodaj do ulubionych
+                            <Heart  />
+
+                            </Button>
+                        </div>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
                     </div>
 
-                    <div class="my-8 grid grid-cols-3 rounded-xl border p-6">
-                        <div class="flex flex-col items-center gap-4">
+                    <div class="my-8 md:grid md:grid-cols-3 rounded-xl border p-6 flex flex-col gap-6">
+                        <div class="flex flex-col items-center md:gap-4 gap-2">
                             <div class="flex items-center gap-2">
                                 <Utensils />
                                 <span class="text-lg">Porcja</span>
@@ -76,7 +83,7 @@ const deleteRecipe = () => {
                             dla {{ recipe.servings }} osób
                         </div>
 
-                        <div class="flex flex-col items-center gap-4">
+                        <div class="flex flex-col items-center md:gap-4 gap-2">
                             <div class="flex items-center gap-2">
                                 <Hourglass />
                                 <span class="text-lg">Przygotowanie</span>
@@ -84,7 +91,7 @@ const deleteRecipe = () => {
                             {{ recipe.prepare_time }} minut
                         </div>
 
-                        <div class="flex flex-col items-center gap-4">
+                        <div class="flex flex-col items-center md:gap-4 gap-2">
                             <div class="flex items-center gap-2">
                                 <Clock />
                                 <span class="text-lg">Gotowanie</span>
@@ -93,7 +100,7 @@ const deleteRecipe = () => {
                         </div>
                     </div>
 
-                    <div class="mb-16 grid grid-cols-4 overflow-hidden rounded-xl border text-center">
+                    <div class="mb-16 grid grid-cols-2 md:grid-cols-4  overflow-hidden rounded-xl border text-center">
                         <a href="#skladniki" class="border-r p-4 hover:bg-primary/60">Składniki</a>
                         <a href="#przygotowanie" class="border-r p-4 hover:bg-primary/60">Przygotowanie</a>
                         <a href="#uwagi" class="border-r p-4 hover:bg-primary/60">Uwagi</a>
@@ -130,13 +137,13 @@ const deleteRecipe = () => {
                         </div>
                     </div>
                 </div>
-
-                <div class="xl:max-w-[400px] max-w-[80%]">
+                <!-- Right sidebar -->
+                <div class="max-w-[700px] mx-auto">
                     <aside class="w-full space-y-8">
                         <!-- Edit Recipe -->
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
-                                <Button class="w-[150px]" type="button" variant="default">Edytuj przepis</Button>
+                                <Button class="w-[150px] bg-blue-500 hover:bg-blue-400" type="button" variant="default">Edytuj przepis</Button>
                             </Link>
 
                             <AlertDialog v-if="authUser && recipe.user_id === authUser.id">
