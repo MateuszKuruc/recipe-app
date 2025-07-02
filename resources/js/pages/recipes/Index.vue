@@ -50,7 +50,7 @@ watch(
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="m-auto flex h-full w-full max-w-[1440px] flex-1 flex-col gap-8 rounded-xl p-4">
             <div class="flex flex-col items-center py-16">
-                <Input v-model="searchField" placeholder="Szukaj przepisów..." class="h-16 w-[500px] bg-orange-200 rounded-xl " />
+                <Input v-model="searchField" placeholder="Szukaj przepisów..." class="h-16 w-[500px] bg-orange-200 rounded-xl text-3xl placeholder:text-lg" />
             </div>
 
             <div class="grid gap-4 xl:grid-cols-3">
