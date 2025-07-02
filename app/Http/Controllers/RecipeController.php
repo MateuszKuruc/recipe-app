@@ -92,7 +92,7 @@ class RecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
-        $recipe->load(['tags', 'category']);
+        $recipe->load(['tags', 'category', 'favoritedBy']);
         $categories = Category::withCount('recipes')->get();
         $relatedRecipes = Recipe::where('category_id', $recipe->category_id)
             ->where('id', '!=', $recipe->id)
@@ -177,5 +177,21 @@ class RecipeController extends Controller
     {
         $random = Recipe::inRandomOrder()->firstOrFail();
         return redirect()->route('recipes.show', $random->slug);
+    }
+
+    public function favorite(Recipe $recipe)
+    {
+        $user = auth()->user();
+
+        if (!$user->favoriteRecipes()->where('recipe_id', $recipe->id)->exists()) {
+            $user->favoriteRecipes()->attach($recipe->id);
+        }
+    }
+
+    public function unfavorite(Recipe $recipe)
+    {
+        $user = auth()->user();
+
+        $user->favoriteRecipes()->detach($recipe->id);
     }
 }
