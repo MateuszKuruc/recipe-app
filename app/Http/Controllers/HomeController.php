@@ -11,35 +11,34 @@ class HomeController extends Controller
         $user = auth()->user();
         $favoriteRecipes = null;
 
-        if ($user && $user->favoriteRecipes()->count() >= 3) {
-            $favoriteRecipes = $user->favoriteRecipes()->with(['tags', 'category'])->inRandomOrder()->take(3)->get();
+        if ($user && $user->favoriteRecipes()->count() >= 4) {
+            $favoriteRecipes = $user->favoriteRecipes()->with(['tags', 'category'])->inRandomOrder()->take(4)->get();
         }
 
         $randomRecipes = Recipe::with(['tags', 'category'])->inRandomOrder()->take(3)->get();
 
         $newestRecipes = Recipe::with(['tags', 'category'])
             ->latest()
-            ->take(3)
+            ->take(4)
             ->get();
 
         $breakfastRecipes = Recipe::with(['tags', 'category'])
             ->whereHas('category', fn($q) => $q->where('slug', 'sniadania'))
             ->inRandomOrder()
-            ->take(3)
+            ->take(4)
             ->get();
 
         $dinnerRecipes = Recipe::with(['tags', 'category'])
             ->whereHas('category', fn($q) => $q->where('slug', 'dania-glowne'))
             ->inRandomOrder()
-            ->take(3)
+            ->take(4)
             ->get();
 
         $dessertRecipes = Recipe::with(['tags', 'category'])
             ->whereHas('category', fn($q) => $q->where('slug', 'desery'))
             ->inRandomOrder()
-            ->take(3)
+            ->take(4)
             ->get();
-
 
         return inertia('Home', [
             'newestRecipes' => $newestRecipes,
