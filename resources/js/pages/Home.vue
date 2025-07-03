@@ -102,6 +102,8 @@ const sections = [
                     :is-category="section.isCategory"
                 />
             </div>
+
+            <div></div>
         </div>
     </AppLayout>
 </template>
