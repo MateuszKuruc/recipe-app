@@ -9,6 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
 
 const props = defineProps({
     categories: Array,
@@ -56,7 +59,17 @@ const submit = () => {
     form.post(url, {
         method: method,
         forceFormData: hasFileUploads,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset();
+            if (method === 'post') {
+            toast.success('Dodano nowy przepis')
+            } else if (method === 'put') {
+                toast.success('Przepis został edytowany')
+            }
+        },
+        onError: () => {
+            toast.error('Wystąpił błąd. Przepis nie został utworzony')
+        }
     });
 };
 
