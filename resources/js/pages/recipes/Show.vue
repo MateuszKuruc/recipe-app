@@ -81,7 +81,15 @@ const toggleFavorite = () => {
 };
 
 const deleteRecipe = () => {
-    form.delete(route('recipes.destroy', recipe.value.slug));
+    form.delete(route('recipes.destroy', recipe.value.slug), {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast.success('Przepis został usunięty')
+        },
+        onError: () => {
+            toast.error('Wystąpił błąd, przepis nie został usunięty')
+        }
+    });
 };
 </script>
 
