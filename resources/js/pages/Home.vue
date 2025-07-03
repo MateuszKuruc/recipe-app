@@ -6,6 +6,9 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import Autoplay from 'embla-carousel-autoplay';
+import LinkButton from '@/components/LinkButton.vue';
+import { Gift, Plus, Scroll } from 'lucide-vue-next';
+import ActionCard from '@/components/ActionCard.vue';
 
 const props = defineProps({
     newestRecipes: Array,
@@ -103,7 +106,17 @@ const sections = [
                 />
             </div>
 
-            <div></div>
+            <div class="flex flex-col items-center py-8">
+                <LinkButton :href="route('categories.index')" class="max-w-[300px] py-4 px-8">
+                    Zobacz wszystkie kategorie
+                </LinkButton>
+            </div>
+
+            <div class="grid gap-4 xl:grid-cols-3">
+                <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('recipes.create')" class="h-42 w-full" />
+                <ActionCard title="Wszystkie przepisy" :icon="Scroll" :href="route('recipes.index')" class="h-42 w-full" />
+                <ActionCard title="Wylosuj przepis" :icon="Gift" :href="route('recipes.random')" class="h-42 w-full" />
+            </div>
         </div>
     </AppLayout>
 </template>
