@@ -16,7 +16,10 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { Clock, Heart, Hourglass, Utensils } from 'lucide-vue-next';
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
 
 defineProps({
     recipe: Object,
@@ -35,48 +38,50 @@ const form = useForm({});
 const page = usePage();
 
 const authUser = page.props.auth?.user;
-const recipe = ref({...page.props.recipe });
+const recipe = ref({ ...page.props.recipe });
 
 const favoritedBy = ref(recipe.value.favorited_by || null);
 
 const isFavorited = computed(() => {
-    return authUser && favoritedBy.value.some(user => user.id === authUser.id);
+    return authUser && favoritedBy.value.some((user) => user.id === authUser.id);
 });
 
 const toggleFavorite = () => {
-    if (!authUser) return;
+    if (!authUser || form.processing) return;
+
+    const userId = authUser.id;
 
     if (isFavorited.value) {
-        // Optimistic update: remove user from local list
-        favoritedBy.value = favoritedBy.value.filter(
-            user => user.id !== authUser.id
-        );
+        favoritedBy.value = favoritedBy.value.filter((u) => u.id !== userId);
 
         form.delete(route('recipes.unfavorite', recipe.value.slug), {
             preserveScroll: true,
+            onSuccess: () => {
+                toast.info('Przepis usunięty z ulubionych')
+        },
             onError: () => {
-                // Rollback if server fails
                 favoritedBy.value.push(authUser);
+                toast.error('Nie udało się usunąć z ulubionych')
             },
         });
     } else {
-        // Optimistic update: add user to local list
         favoritedBy.value.push(authUser);
 
         form.post(route('recipes.favorite', recipe.value.slug), {
             preserveScroll: true,
+            onSuccess: () => {
+              toast.success('Przepis dodany do ulubionych')
+            },
             onError: () => {
-                // Rollback if server fails
-                favoritedBy.value = favoritedBy.value.filter(
-                    user => user.id !== authUser.id
-                );
+                favoritedBy.value = favoritedBy.value.filter((user) => user.id !== authUser.id);
+                toast.error('Nie udało się dodać przepisu do ulubionych')
             },
         });
     }
 };
 
 const deleteRecipe = () => {
-    form.delete(route('recipes.destroy', recipe.slug));
+    form.delete(route('recipes.destroy', recipe.value.slug));
 };
 </script>
 
@@ -99,10 +104,15 @@ const deleteRecipe = () => {
                                     >{{ recipe.category.name }}
                                 </Link>
                             </p>
-                            <Button :disabled="form.processing" class="rounded-xl border border-gray-300 p-3 hover:cursor-pointer" variant="outline" @click="toggleFavorite" :aria-label="isFavorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'">
+                            <Button
+                                :disabled="form.processing"
+                                class="rounded-xl border border-gray-300 hover:cursor-pointer"
+                                variant="outline"
+                                @click="toggleFavorite"
+                                :aria-label="isFavorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'"
+                            >
                                 <Heart :class="isFavorited ? 'fill-orange-500' : 'stroke-current'" />
                             </Button>
-
                         </div>
 
                         <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
