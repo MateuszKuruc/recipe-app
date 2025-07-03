@@ -86,7 +86,7 @@ class RecipeController extends Controller
 
         $recipe->tags()->attach($request->tags);
 
-        return redirect()->route('recipes.show', $recipe->slug)->with('success', 'Dodano nowy przepis!');
+        return redirect()->route('recipes.show', $recipe->slug);
 
     }
 
@@ -155,7 +155,7 @@ class RecipeController extends Controller
 
         $recipe->tags()->sync($request->tags ?? []);
 
-        return redirect()->route('recipes.show', $recipe->slug)->with('success', 'Przepis został zaktualizowany!');
+        return redirect()->route('recipes.show', $recipe->slug);
     }
 
     public function destroy(Recipe $recipe)
@@ -170,7 +170,7 @@ class RecipeController extends Controller
 
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Przepis został usunięty');
+        return redirect()->route('recipes.index');
     }
 
     public function showRandom(Recipe $recipe)
