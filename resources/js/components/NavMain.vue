@@ -11,13 +11,15 @@ const page = usePage();
 </script>
 
 <template>
-    <SidebarGroup class="px-2 pt-6">
+    <SidebarGroup class=" 'px-2 pt-6">
         <SidebarGroupLabel class="text-sm">Spis treści</SidebarGroupLabel>
 
         <SidebarMenu class="flex flex-col gap-4 pt-2">
             <SidebarMenuItem v-for="item in items" :key="item.title">
                 <!-- Regular nav item (no children) -->
-                <SidebarMenuButton v-if="!item.children" as-child :is-active="item.href === page.url" :tooltip="item.title" size="lg">
+                <SidebarMenuButton v-if="!item.children" as-child :is-active="item.href === '/'
+    ? page.url === '/'
+    : page.url === item.href || page.url.startsWith(item.href + '?')" :tooltip="item.title" size="lg">
                     <Link :href="item.href">
                         <div class="h-8 w-8 shrink-0">
                             <component :is="item.icon" class="h-full w-full" />
