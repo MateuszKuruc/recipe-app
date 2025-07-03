@@ -6,7 +6,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import Autoplay from 'embla-carousel-autoplay';
-import { Grid } from 'lucide-vue-next';
+import { Gift, Grid } from 'lucide-vue-next';
 
 defineProps({
     categories: Array,
@@ -62,7 +62,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
                     <div v-for="category in categories" :key="category.slug" class="aspect-[4/3] w-full">
                         <ActionCard
                             class="h-full w-full"
@@ -78,9 +78,15 @@ const breadcrumbs: BreadcrumbItem[] = [
 
             <div class="space-y-8">
                 <h2 class="border-b pt-6 pb-6 text-3xl font-bold">Sprawdź też:</h2>
-                <div class="grid auto-rows-min gap-4 md:grid-cols-2">
-                    <ActionCard title="Wszystkie przepisy" :icon="Grid" :href="route('recipes.index')" :count="totalRecipes" />
-                    <ActionCard title="Najnowsze przepisy" :icon="Grid" href="" />
+                <div class="flex flex-col gap-4">
+                    <ActionCard
+                        title="Wszystkie przepisy"
+                        :icon="Grid"
+                        :href="route('recipes.index')"
+                        :count="totalRecipes"
+                        class="h-[200px] w-full"
+                    />
+                    <ActionCard title="Wylosuj przepis" :icon="Gift" :href="route('recipes.random')" class="h-42 w-full" />
                 </div>
             </div>
         </div>

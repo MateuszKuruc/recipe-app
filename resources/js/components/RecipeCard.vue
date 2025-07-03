@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="relative flex flex-col space-y-2 p-4 border-b">
+    <div class="relative flex flex-col space-y-2 p-4 border-b border-gray-300">
         <div class="relative">
             <Link
                 v-if="currentSlug !== recipe.category.slug"

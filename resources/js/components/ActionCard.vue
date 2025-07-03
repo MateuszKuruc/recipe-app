@@ -18,13 +18,13 @@ defineProps<Props>();
 </script>
 
 <template>
-    <div class="relative aspect-video overflow-hidden rounded-xl border">
+    <div class="relative aspect-video overflow-hidden rounded-xl border border-gray-300">
         <img :src="image" alt="" />
 
         <!-- Outer clickable card -->
         <Link
             :href="href"
-            class="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-200 p-4 text-center shadow-sm transition hover:bg-secondary  hover:shadow-md"
+            class="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-300 p-4 text-center shadow-sm transition hover:bg-secondary  hover:shadow-md"
 
         >
             <component v-if="icon" :is="icon" class="mb-2 h-6 w-6 text-gray-600" />
