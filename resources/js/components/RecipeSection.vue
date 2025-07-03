@@ -23,13 +23,14 @@ defineProps({
             </LinkButton>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             <RecipeCardBlock
                 v-for="recipe in data"
                 :key="recipe.id"
                 :image="`/storage/${recipe.main_image}`"
                 :title="recipe.title"
                 :href="route('recipes.show', recipe.slug)"
+                :tags="recipe.tags"
             />
         </div>
     </section>
