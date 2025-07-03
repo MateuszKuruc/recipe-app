@@ -1,23 +1,25 @@
-<template>
-    <div class="rounded-lg overflow-hidden">
-        <img
-            :src="image"
-            :alt="title"
-            class="w-full h-48 object-cover"
-        />
-        <div class="mt-4">
-            <h3 class="text-orange-500 text-lg font-bold leading-snug">
-                {{ title }}
-            </h3>
-            <p class="text-sm text-gray-600 mt-1">{{ subtitle }}</p>
-        </div>
-    </div>
-</template>
-
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+
 defineProps<{
     image: string;
     title: string;
-    subtitle?: string;
+    href: string;
 }>();
 </script>
+
+<template>
+    <div class="overflow-hidden rounded-lg">
+        <Link :href="href">
+            <img :src="image" :alt="title" class="h-48 w-full object-cover" />
+        </Link>
+        <div class="mt-4">
+            <Link :href="href">
+                <h3 class="text-lg leading-snug font-bold text-orange-500">
+                    {{ title }}
+                </h3>
+            </Link>
+
+        </div>
+    </div>
+</template>
