@@ -18,7 +18,7 @@ defineProps<Props>();
 </script>
 
 <template>
-    <div class="relative aspect-video overflow-hidden rounded-xl border border-gray-300">
+    <div class="relative aspect-video overflow-hidden rounded-xl border border-gray-300 shadow-xl">
         <img :src="image" alt="" />
 
         <!-- Outer clickable card -->

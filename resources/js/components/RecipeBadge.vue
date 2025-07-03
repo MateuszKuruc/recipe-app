@@ -51,7 +51,7 @@ function badgeClass(name) {
         <span
             v-for="tag in tags"
             :key="tag.id"
-            class="text-s inline-flex gap-1 rounded px-2 py-1 font-semibold text-white"
+            class="text-s inline-flex gap-1 rounded px-2 py-1 font-semibold text-white shadow"
             :class="badgeClass(tag.name)"
         >
             <component :is="badgeIcon(tag.name)" class="h-6 w-6" />
