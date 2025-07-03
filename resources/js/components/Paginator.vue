@@ -1,13 +1,39 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
-const { recipes } = defineProps({
-    recipes: Object
-})
 
-const prevLink = computed(() => recipes.links[0])
+const { recipes } = defineProps({
+    recipes: Object,
+});
+
+const prevLink = computed(() => recipes.links[0]);
 const nextLink = computed(() => recipes.links[recipes.links.length - 1]);
-const pageLinks = computed(() => recipes.links.slice(1, recipes.links.length -1));
+
+const currentPage = recipes.current_page;
+const lastPage = recipes.last_page;
+
+const pageLinks = computed(() => {
+    const pagesToShow = new Set();
+
+    for (let i = 1; i <= 3 && i <= lastPage; i++) {
+        pagesToShow.add(i);
+    }
+
+    for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        if (i > 1 && i < lastPage) pagesToShow.add(i);
+    }
+
+    pagesToShow.add(lastPage);
+
+    const rawLinks = recipes.links.slice(1, recipes.links.length - 1);
+
+    const filtered = rawLinks.filter((link) => {
+        const pageNum = Number(link.label);
+        return pagesToShow.has(pageNum);
+    });
+
+    return filtered;
+});
 </script>
 
 <template>
@@ -19,25 +45,34 @@ const pageLinks = computed(() => recipes.links.slice(1, recipes.links.length -1)
         'px-3 py-1 border rounded text-sm',
         prevLink.url
           ? 'bg-white text-gray-700 hover:bg-gray-100'
-          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
+          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none',
       ]"
             v-html="'&laquo; Poprzednia'"
-
         />
 
-        <!-- Pages -->
-        <Link
-            v-for="link in pageLinks"
-            :key="link.label + link.url"
-            :href="link.url || ''"
-            :class="[
-        'px-3 py-1 border rounded text-sm',
-        link.active
-          ? 'bg-blue-500 text-white'
-          : 'bg-white text-gray-700 hover:bg-gray-100'
-      ]"
-            v-html="link.label"
-        />
+        <!-- Page Links with Ellipsis -->
+        <template v-for="(link, index) in pageLinks" :key="link.label + link.url">
+            <!-- Add ellipsis if gap from previous page -->
+            <span
+                v-if="
+          index > 0 &&
+          Number(link.label) - Number(pageLinks[index - 1].label) > 1
+        "
+                class="px-2 text-gray-400"
+            >...</span
+            >
+
+            <Link
+                :href="link.url || ''"
+                :class="[
+          'px-3 py-1 border rounded text-sm',
+          link.active
+            ? 'bg-blue-500 text-white'
+            : 'bg-white text-gray-700 hover:bg-gray-100',
+        ]"
+                v-html="link.label"
+            />
+        </template>
 
         <!-- Next -->
         <Link
@@ -46,7 +81,7 @@ const pageLinks = computed(() => recipes.links.slice(1, recipes.links.length -1)
         'px-3 py-1 border rounded text-sm',
         nextLink.url
           ? 'bg-white text-gray-700 hover:bg-gray-100'
-          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
+          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none',
       ]"
             v-html="'Następna &raquo;'"
         />
