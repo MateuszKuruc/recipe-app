@@ -36,7 +36,7 @@ class RecipeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return inertia('recipes/Index', [
+        return Inertia::render('recipes/Index', [
             'recipes' => $recipes,
             'searchField' => $request->input('searchField', ''),
         ]);
@@ -72,16 +72,16 @@ class RecipeController extends Controller
 
         $mainImagePath = $request->file('main_image')->store('recipes', 'public');
         $secondaryImagePath = $request->file('secondary_image')
-           ? $request->file('secondary_image')->store('recipes', 'public')
+            ? $request->file('secondary_image')->store('recipes', 'public')
             : null;
 
         unset($validated['tags']);
 
         $recipe = Recipe::create([
-           ...$validated,
-           'user_id' => auth()->id(),
-           'main_image' => $mainImagePath,
-           'secondary_image' => $secondaryImagePath,
+            ...$validated,
+            'user_id' => auth()->id(),
+            'main_image' => $mainImagePath,
+            'secondary_image' => $secondaryImagePath,
         ]);
 
         $recipe->tags()->attach($request->tags);
@@ -193,5 +193,27 @@ class RecipeController extends Controller
         $user = auth()->user();
 
         $user->favoriteRecipes()->detach($recipe->id);
+    }
+
+    public function showFavorites()
+    {
+        $user = auth()->user();
+
+        $favoriteRecipes = $user->favoriteRecipes()
+            ->with(['tags', 'category'])
+            ->paginate(6);
+
+        return inertia::render('recipes/ShowFavorites', [
+            'favoriteRecipes' => $favoriteRecipes
+        ]);
+    }
+
+    public function showRandomFavorite()
+    {
+        $user = auth()->user();
+
+        $random = $user->favoriteRecipes()->inRandomOrder()->firstOrFail();
+
+        return redirect()->route('recipes.show', $random->slug);
     }
 }
