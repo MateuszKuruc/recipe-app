@@ -112,10 +112,14 @@ const sections = [
                 </LinkButton>
             </div>
 
+            <div class="flex flex-col gap-6">
+                <h2 class="text-3xl font-extrabold border-b pb-4">Może Cię też zainteresować:</h2>
+
             <div class="grid gap-4 xl:grid-cols-3">
                 <ActionCard title="Dodaj nowy przepis" :icon="Plus" :href="route('recipes.create')" class="h-42 w-full" />
                 <ActionCard title="Wszystkie przepisy" :icon="Scroll" :href="route('recipes.index')" class="h-42 w-full" />
                 <ActionCard title="Wylosuj przepis" :icon="Gift" :href="route('recipes.random')" class="h-42 w-full" />
+            </div>
             </div>
         </div>
     </AppLayout>
