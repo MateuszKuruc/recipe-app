@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Kategorie" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="m-auto mt-16 flex h-full max-w-[1440px] flex-1 flex-col gap-8 rounded-xl p-4">
+        <div class="mt-16 flex h-full max-w-[1440px] flex-1 flex-col gap-8 rounded-xl p-4 items-center self-center">
             <div class="flex flex-col items-center gap-4 border-b pb-6">
                 <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
                 <p class="paragraph max-w-[60ch] text-center">
@@ -62,8 +62,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-                    <div v-for="category in categories" :key="category.slug" class="aspect-[4/3] w-full">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3 w-full">
+                    <div v-for="category in categories" :key="category.slug" class="aspect-[4/3] h-60 w-full">
                         <ActionCard
                             class="h-full w-full"
                             :title="category.name"
