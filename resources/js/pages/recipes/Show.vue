@@ -57,11 +57,11 @@ const toggleFavorite = () => {
         form.delete(route('recipes.unfavorite', recipe.value.slug), {
             preserveScroll: true,
             onSuccess: () => {
-                toast.info('Przepis usunięty z ulubionych')
-        },
+                toast.info('Przepis usunięty z ulubionych');
+            },
             onError: () => {
                 favoritedBy.value.push(authUser);
-                toast.error('Nie udało się usunąć z ulubionych')
+                toast.error('Nie udało się usunąć z ulubionych');
             },
         });
     } else {
@@ -70,11 +70,11 @@ const toggleFavorite = () => {
         form.post(route('recipes.favorite', recipe.value.slug), {
             preserveScroll: true,
             onSuccess: () => {
-              toast.success('Przepis dodany do ulubionych')
+                toast.success('Przepis dodany do ulubionych');
             },
             onError: () => {
                 favoritedBy.value = favoritedBy.value.filter((user) => user.id !== authUser.id);
-                toast.error('Nie udało się dodać przepisu do ulubionych')
+                toast.error('Nie udało się dodać przepisu do ulubionych');
             },
         });
     }
@@ -84,11 +84,11 @@ const deleteRecipe = () => {
     form.delete(route('recipes.destroy', recipe.value.slug), {
         preserveScroll: true,
         onSuccess: () => {
-            toast.success('Przepis został usunięty')
+            toast.success('Przepis został usunięty');
         },
         onError: () => {
-            toast.error('Wystąpił błąd, przepis nie został usunięty')
-        }
+            toast.error('Wystąpił błąd, przepis nie został usunięty');
+        },
     });
 };
 </script>
@@ -97,13 +97,13 @@ const deleteRecipe = () => {
     <Head :title="recipe.title" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4 overflow-hidden">
+        <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-4">
             <div class="flex flex-col items-center border-b pb-8">
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
             </div>
 
-            <div class="grid grid-cols-1 2xl:grid-cols-[1fr_400px] gap-8">
-                <div class="md:mx-auto max-w-[700px] pb-16 md:pb-16">
+            <div class="grid grid-cols-1 gap-8 2xl:grid-cols-[1fr_400px]">
+                <div class="max-w-[700px] pb-16 md:mx-auto md:pb-16">
                     <div class="flex flex-col gap-y-6 md:gap-y-4">
                         <div class="flex items-center justify-between">
                             <p>
@@ -124,7 +124,7 @@ const deleteRecipe = () => {
                             </Button>
                         </div>
 
-                        <h2 class="max-w-full text-4xl font-bold text-rose-600 break-words">{{ recipe.title }}</h2>
+                        <h2 class="max-w-full text-4xl font-bold break-words text-rose-600">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
@@ -163,10 +163,7 @@ const deleteRecipe = () => {
                         <a href="#inspiracje" class="p-4 hover:bg-primary/60">Inspiracje</a>
                     </div>
 
-
-
-
-                    <div class="space-y-8">
+                    <div class="flex flex-col gap-16 space-y-8">
                         <div class="flex flex-col gap-y-2" id="skladniki">
                             <h2 class="border-b pb-2 text-3xl font-bold">Składniki</h2>
                             <p class="paragraph">{{ recipe.ingredients }}</p>
@@ -177,10 +174,7 @@ const deleteRecipe = () => {
                             <p class="paragraph">{{ recipe.instructions }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-y-2">
-                            <h2 class="border-b pb-2 text-3xl font-bold">Propozycja podania</h2>
-                            <p class="paragraph">{{ recipe.ingredients }}</p>
-                        </div>
+
 
                         <div class="flex flex-col gap-y-2" id="uwagi">
                             <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
@@ -203,7 +197,7 @@ const deleteRecipe = () => {
                         <!-- Edit Recipe -->
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
-                                <Button class="w-[150px] bg-blue-500 hover:bg-blue-400" type="button" variant="default">Edytuj przepis</Button>
+                                <Button class="w-[150px] bg-teal-600 hover:bg-teal-500" type="button" variant="default">Edytuj przepis</Button>
                             </Link>
 
                             <AlertDialog v-if="authUser && recipe.user_id === authUser.id">
@@ -245,7 +239,7 @@ const deleteRecipe = () => {
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Podobne przepisy</h3>
                             <ul class="flex flex-col space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
-                                    <img :src="recipe.main_image" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
+                                    <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
                                     <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-rose-600 hover:text-rose-500">
                                         {{ recipe.title }}
                                     </Link>
