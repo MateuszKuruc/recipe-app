@@ -20,29 +20,32 @@ const footerLinkClass = (href: string) =>
         : 'text-gray-200 hover:text-white hover:underline';
 
 const mainNavItems: NavItem[] = [
-    { title: 'Strona główna', href: '/', icon: House },
-    { title: 'Przepisy', href: '/przepisy', icon: Scroll },
-    { title: 'Kategorie', href: '/kategorie', icon: LayoutGrid },
+    { title: 'Strona główna', href: '/' },
+    { title: 'Przepisy', href: '/przepisy' },
+    { title: 'Kategorie', href: '/kategorie' },
 ];
 
 const footerNavItems: NavItem[] = user
     ? [
-        { title: 'Dodaj nowy przepis', href: '/przepisy/dodaj', icon: Plus },
-        { title: 'Ulubione przepisy', href: '/przepisy/ulubione', icon: Heart },
-        { title: 'Znajdź przepis', href: '/przepisy/', icon: Search },
+        { title: 'Dodaj nowy przepis', href: '/przepisy/dodaj' },
+        { title: 'Ulubione przepisy', href: '/przepisy/ulubione'  },
+        { title: 'Znajdź przepis', href: '/przepisy' },
     ]
-    : [];
+    : [
+        { title: 'Logowanie', href: '/login' },
+        { title: 'Rejestracja', href: '/rejestracja' },
+    ];
 
 const categories: NavItem[] = [
-    { title: 'Śniadania', href: '/kategorie/sniadania', icon: EggFried },
-    { title: 'Przekąski', href: '/kategorie/przekaski', icon: Popcorn },
-    { title: 'Desery', href: '/kategorie/desery', icon: Donut },
-    { title: 'Zupy', href: '/kategorie/zupy', icon: Soup },
-    { title: 'Dania główne', href: '/kategorie/dania-glowne', icon: Beef },
-    { title: 'Sałatki', href: '/kategorie/salatki', icon: Salad },
-    { title: 'Napoje', href: '/kategorie/napoje-bezalkoholowe', icon: Coffee },
-    { title: 'Drinki', href: '/kategorie/drinki', icon: Beer },
-    { title: 'Sosy i dodatki', href: '/kategorie/sosy-i-dodatki', icon: Milk },
+    { title: 'Śniadania', href: '/kategorie/sniadania' },
+    { title: 'Przekąski', href: '/kategorie/przekaski' },
+    { title: 'Desery', href: '/kategorie/desery' },
+    { title: 'Zupy', href: '/kategorie/zupy' },
+    { title: 'Dania główne', href: '/kategorie/dania-glowne' },
+    { title: 'Sałatki', href: '/kategorie/salatki' },
+    { title: 'Napoje', href: '/kategorie/napoje-bezalkoholowe' },
+    { title: 'Drinki', href: '/kategorie/drinki' },
+    { title: 'Sosy i dodatki', href: '/kategorie/sosy-i-dodatki' },
 ];
 </script>
 
@@ -78,6 +81,7 @@ const categories: NavItem[] = [
                         <li v-for="item in footerNavItems" :key="item.href">
                             <Link :href="item.href" :class="footerLinkClass(item.href)">{{ item.title }}</Link>
                         </li>
+
                     </ul>
                 </div>
             </div>
