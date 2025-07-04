@@ -97,13 +97,13 @@ const deleteRecipe = () => {
     <Head :title="recipe.title" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-4 overflow-hidden">
             <div class="flex flex-col items-center border-b pb-8">
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
             </div>
 
-            <div class="gap-20 xl:grid-cols-[1fr_400px] 2xl:grid">
-                <div class="m-auto max-w-[700px] pb-16 md:pb-16">
+            <div class="grid grid-cols-1 2xl:grid-cols-[1fr_400px] gap-8">
+                <div class="md:mx-auto max-w-[700px] pb-16 md:pb-16">
                     <div class="flex flex-col gap-y-6 md:gap-y-4">
                         <div class="flex items-center justify-between">
                             <p>
@@ -113,6 +113,7 @@ const deleteRecipe = () => {
                                 </Link>
                             </p>
                             <Button
+                                v-if="authUser"
                                 :disabled="form.processing"
                                 class="rounded-xl border border-gray-300 hover:cursor-pointer"
                                 variant="outline"
@@ -123,7 +124,7 @@ const deleteRecipe = () => {
                             </Button>
                         </div>
 
-                        <h2 class="w-[600px] text-4xl font-bold text-rose-600">{{ recipe.title }}</h2>
+                        <h2 class="max-w-full text-4xl font-bold text-rose-600 break-words">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
@@ -161,6 +162,10 @@ const deleteRecipe = () => {
                         <a href="#uwagi" class="border-r p-4 hover:bg-primary/60">Uwagi</a>
                         <a href="#inspiracje" class="p-4 hover:bg-primary/60">Inspiracje</a>
                     </div>
+
+
+
+
                     <div class="space-y-8">
                         <div class="flex flex-col gap-y-2" id="skladniki">
                             <h2 class="border-b pb-2 text-3xl font-bold">Składniki</h2>
