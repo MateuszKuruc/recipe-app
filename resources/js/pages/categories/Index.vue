@@ -11,6 +11,7 @@ import { Gift, Grid } from 'lucide-vue-next';
 defineProps({
     categories: Array,
     totalRecipes: Number,
+    randomRecipes: Array
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -19,6 +20,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/kategorie',
     },
 ];
+
+const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
 </script>
 
 <template>
@@ -29,36 +32,33 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="flex flex-col items-center gap-4 border-b pb-6">
                 <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
                 <p class="paragraph max-w-[60ch] text-center">
-                    Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
-                    kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategorii
+                    Przeglądaj przepisy według kategorii i odkrywaj nowe pomysły na śniadania, obiady, desery i wiele więcej.
                 </p>
             </div>
 
             <div class="relative w-full overflow-visible px-4">
-                <Carousel orientation="horizontal" class="mx-auto w-full" :opts="{ loop: true }" :plugins="[Autoplay({ delay: 2000 })]">
+                <Carousel orientation="horizontal" class="mx-auto w-full max-w-6xl" :opts="{ loop: true }" :plugins="[autoplay]">
                     <CarouselContent>
-                        <CarouselItem>
+                        <CarouselItem v-for="randomRecipe in randomRecipes" :key="randomRecipe.id">
                             <RecipeCarouselItem
-                                title="Jajeczniczka z boczkiem"
-                                image="/storage/recipes/dDVVzefnoM4XilQVgiQ7psfJB8NaYVSYg2uFxsVx.png"
-                                excerpt="uabubuasf wqewqewqks dahwqeoihwqsda sdaasjkhqwsa dashjsadkw"
-                                link="/recipes"
+                                :title="randomRecipe.title"
+                                :image="`/storage/${randomRecipe.main_image}`"
+                                :excerpt="randomRecipe.excerpt"
+                                :link="route('recipes.show', randomRecipe.slug)"
                             />
                         </CarouselItem>
                     </CarouselContent>
 
-                    <!-- Make arrows absolutely positioned -->
-                    <CarouselPrevious class="absolute top-1/2 left-0 z-10 -translate-y-1/2" />
-                    <CarouselNext class="absolute top-1/2 right-0 z-10 -translate-y-1/2" />
+                    <CarouselPrevious @click="autoplay.reset()" class="absolute top-1/2 left-0 z-10 -translate-y-1/2 bg-rose-700 text-white hover:bg-rose-600 hover:text-white" />
+                    <CarouselNext @click="autoplay.reset()" class="absolute top-1/2 right-0 z-10 -translate-y-1/2 bg-rose-700 text-white hover:bg-rose-600 hover:text-white" />
                 </Carousel>
             </div>
 
             <div class="flex flex-col items-center gap-8 py-16">
                 <div class="flex w-full flex-col items-center gap-4 border-b pb-6">
-                    <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
+                    <h1 class="text-4xl font-bold">Brak pomysłu na jedzenie?</h1>
                     <p class="paragraph max-w-[60ch] text-center">
-                        Sprawdź wybrane kategorie lub poszukaj inspiracji dzięki lo sowym przepisom z każdej kategoriisowym przepisom z każdej
-                        kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategoriisowym przepisom z każdej kategorii
+                        Wybierz kategorię, która Cię interesuje i poszukaj inspiracji lub oddaj decyzję w ręce losu i wybierz przepis niespodziankę z dowolnej kategorii
                     </p>
                 </div>
 
