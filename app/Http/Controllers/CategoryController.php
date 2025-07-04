@@ -16,9 +16,12 @@ class CategoryController extends Controller
 
         $totalRecipes = Recipe::count();
 
+        $randomRecipes = Recipe::with(['category'])->inRandomOrder()->take(3)->get();
+
         return inertia::render('categories/Index', [
             'categories' => $categories,
             'totalRecipes' => $totalRecipes,
+            'randomRecipes' => $randomRecipes,
         ]);
     }
 
