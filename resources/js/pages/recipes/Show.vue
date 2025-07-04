@@ -156,11 +156,10 @@ const deleteRecipe = () => {
                         </div>
                     </div>
 
-                    <div class="mb-16 grid grid-cols-2 overflow-hidden rounded-xl border border-gray-300 text-center md:grid-cols-4">
-                        <a href="#skladniki" class="border-r p-4 hover:bg-sidebar-accent">Składniki</a>
-                        <a href="#przygotowanie" class="border-r p-4 hover:bg-primary/60">Przygotowanie</a>
-                        <a href="#uwagi" class="border-r p-4 hover:bg-primary/60">Uwagi</a>
-                        <a href="#inspiracje" class="p-4 hover:bg-primary/60">Inspiracje</a>
+                    <div class="mb-16 grid grid-cols-1 overflow-hidden rounded-xl border border-gray-300 text-center md:grid-cols-3">
+                        <a href="#skladniki" class="md:border-r p-4 hover:bg-sidebar-accent border-b border-gray-300 md:border-b-0 ">Składniki</a>
+                        <a href="#przygotowanie" class="md: border-r p-4 hover:bg-primary/60 border-gray-300 border-b md:border-b-0">Przygotowanie</a>
+                        <a href="#uwagi" class="p-4 hover:bg-primary/60">Uwagi</a>
                     </div>
 
                     <div class="flex flex-col gap-16 space-y-8">
@@ -174,8 +173,6 @@ const deleteRecipe = () => {
                             <p class="paragraph">{{ recipe.instructions }}</p>
                         </div>
 
-
-
                         <div class="flex flex-col gap-y-2" id="uwagi">
                             <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
                             <p class="paragraph">{{ recipe.ingredients }}</p>
@@ -184,17 +181,11 @@ const deleteRecipe = () => {
                         <div v-if="recipe.secondary_image">
                             <img :src="`/storage/${recipe.secondary_image}`" alt="" />
                         </div>
-
-                        <div class="flex flex-col gap-y-2" id="inspiracje">
-                            <h2 class="border-b pb-2 text-3xl font-bold">Inspiracje</h2>
-                            <p>{{ recipe.ingredients }}</p>
-                        </div>
                     </div>
                 </div>
                 <!-- Right sidebar -->
                 <div class="mx-auto max-w-[700px] border-gray-300 2xl:border-l 2xl:pl-8">
                     <aside class="w-full space-y-8">
-                        <!-- Edit Recipe -->
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
                                 <Button class="w-[150px] bg-teal-600 hover:bg-teal-500" type="button" variant="default">Edytuj przepis</Button>
@@ -222,7 +213,6 @@ const deleteRecipe = () => {
                             </AlertDialog>
                         </div>
 
-                        <!-- Categories -->
                         <div>
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Kategorie</h3>
                             <ul class="space-y-1 text-sm">
@@ -234,12 +224,15 @@ const deleteRecipe = () => {
                             </ul>
                         </div>
 
-                        <!-- Related Recipes -->
                         <div>
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Podobne przepisy</h3>
                             <ul class="flex flex-col space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
-                                    <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
+                                    <img
+                                        :src="`/storage/${recipe.main_image}`"
+                                        :alt="recipe.title"
+                                        class="h-full w-full rounded-xl border object-cover"
+                                    />
                                     <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-rose-600 hover:text-rose-500">
                                         {{ recipe.title }}
                                     </Link>

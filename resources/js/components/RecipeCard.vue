@@ -15,7 +15,7 @@ defineProps({
             <Link
                 v-if="currentSlug !== recipe.category.slug"
                 :href="route('categories.show', recipe.category.slug)"
-                class="absolute top-5 right-0 flex gap-2 rounded-l-xl bg-teal-600 text-white px-6 py-3"
+                class="absolute top-5 right-0 flex gap-2 rounded-l-xl bg-rose-600 text-white px-6 py-3"
             >
                 <Tag />
                 {{ recipe.category.name }}
