@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
 
 // Components
 import HeadingSmall from '@/components/HeadingSmall.vue';
@@ -19,6 +20,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+const toast = useToast();
+
 const passwordInput = ref<HTMLInputElement | null>(null);
 
 const form = useForm({
@@ -30,8 +33,14 @@ const deleteUser = (e: Event) => {
 
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value?.focus(),
+        onSuccess: () => {
+            closeModal();
+            toast.success('Konto zostało usunięte');
+        },
+        onError: () => {
+            passwordInput.value?.focus();
+            toast.error('Wystąpił błąd podczas usuwania konta')
+        },
         onFinish: () => form.reset(),
     });
 };
@@ -59,7 +68,8 @@ const closeModal = () => {
                         <DialogHeader class="space-y-3">
                             <DialogTitle>Czy na pewno chcesz usunąć konto?</DialogTitle>
                             <DialogDescription>
-                                Gdy usuniesz konto, wszystkie dane powiązane z nim, również zostaną usunięte. Wprowadź swoje hasło żeby potwierdzić, że chcesz usunąć konto na zawsze.
+                                Gdy usuniesz konto, wszystkie dane powiązane z nim, również zostaną usunięte. Wprowadź swoje hasło żeby potwierdzić,
+                                że chcesz usunąć konto na zawsze.
                             </DialogDescription>
                         </DialogHeader>
 
