@@ -7,6 +7,9 @@ import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
 
 const form = useForm({
     name: '',
@@ -17,7 +20,15 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => {
+            form.reset('password', 'password_confirmation')
+        },
+        onSuccess: () => {
+            toast.success('Konto zostało utworzone')
+        },
+        onError: () => {
+            toast.error('Wystąpił błąd podczas tworzenia konta')
+        }
     });
 };
 </script>
