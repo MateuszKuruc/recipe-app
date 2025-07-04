@@ -28,7 +28,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     Wszystkie <span class="text-rose-600 lowercase">{{ category.name }}</span>
                 </h2>
                 <div
-                    class="relative grid min-h-[100vh] flex-1 grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
+                    class="relative grid min-h-[100vh] flex-1 grid-cols-1 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min md:grid-cols-2 dark:border-sidebar-border"
                 >
                     <RecipeCard v-for="recipe in recipes.data" :key="recipe.id" :recipe="recipe" :currentSlug="recipe.category.slug" />
                 </div>
