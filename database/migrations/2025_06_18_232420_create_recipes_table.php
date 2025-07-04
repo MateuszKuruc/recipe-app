@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('excerpt');
             $table->text('ingredients');
             $table->longText('instructions');
+            $table->text('notes')->nullable();
             $table->unsignedSmallInteger('prepare_time');
             $table->unsignedSmallInteger('cooking_time');
             $table->unsignedSmallInteger('servings')->default(2);
