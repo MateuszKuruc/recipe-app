@@ -81,7 +81,7 @@ const pageLinks = computed(() => {
         'px-3 py-1 border rounded text-sm',
         nextLink.url
           ? 'bg-white text-gray-700 hover:bg-rose-100'
-          : 'bg-rose-200 text-gray-400 cursor-not-allowed pointer-events-none',
+          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none',
       ]"
             v-html="'Następna &raquo;'"
         />
