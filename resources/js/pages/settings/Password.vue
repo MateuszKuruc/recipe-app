@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -30,10 +33,14 @@ const form = useForm({
 const updatePassword = () => {
     form.put(route('password.update'), {
         preserveScroll: true,
-        onSuccess: () => form.reset(),
+        onSuccess: () => {
+            form.reset();
+            toast.success('Hasło zostało zmienione')
+        },
         onError: (errors: any) => {
             if (errors.password) {
                 form.reset('password', 'password_confirmation');
+                toast.error('Wystąpił błąd podczas zmiany hasła')
                 if (passwordInput.value instanceof HTMLInputElement) {
                     passwordInput.value.focus();
                 }
@@ -41,6 +48,7 @@ const updatePassword = () => {
 
             if (errors.current_password) {
                 form.reset('current_password');
+                toast.error('Wystąpił błąd podczas zmiany hasła')
                 if (currentPasswordInput.value instanceof HTMLInputElement) {
                     currentPasswordInput.value.focus();
                 }
