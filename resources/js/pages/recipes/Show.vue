@@ -108,7 +108,7 @@ const deleteRecipe = () => {
                         <div class="flex items-center justify-between">
                             <p>
                                 Kategoria:
-                                <Link :href="route('categories.index')" class="text-orange-500 hover:text-orange-600 hover:underline"
+                                <Link :href="route('categories.index')" class="text-rose-600 hover:text-rose-500 hover:underline"
                                     >{{ recipe.category.name }}
                                 </Link>
                             </p>
@@ -119,11 +119,11 @@ const deleteRecipe = () => {
                                 @click="toggleFavorite"
                                 :aria-label="isFavorited ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'"
                             >
-                                <Heart :class="isFavorited ? 'fill-orange-500' : 'stroke-current'" />
+                                <Heart :class="isFavorited ? 'fill-rose-600' : 'stroke-current'" />
                             </Button>
                         </div>
 
-                        <h2 class="w-[600px] text-4xl font-bold text-orange-500">{{ recipe.title }}</h2>
+                        <h2 class="w-[600px] text-4xl font-bold text-rose-600">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
@@ -228,7 +228,7 @@ const deleteRecipe = () => {
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Kategorie</h3>
                             <ul class="space-y-1 text-sm">
                                 <li v-for="category in categories" :key="category.id">
-                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-orange-600 hover:underline">
+                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-rose-600 hover:underline">
                                         {{ category.name }} <span class="text-gray-400">({{ category.recipes_count }})</span>
                                     </Link>
                                 </li>
@@ -241,7 +241,7 @@ const deleteRecipe = () => {
                             <ul class="flex flex-col space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
                                     <img :src="recipe.main_image" :alt="recipe.title" class="h-full w-full rounded-xl border object-cover" />
-                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-orange-500 hover:text-orange-600">
+                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-rose-600 hover:text-rose-500">
                                         {{ recipe.title }}
                                     </Link>
                                 </li>

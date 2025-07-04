@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { type Component } from 'vue';
-import { Link } from '@inertiajs/vue3';
-import { Button } from '@/components/ui/button';
 import LinkButton from '@/components/LinkButton.vue';
+import { Link } from '@inertiajs/vue3';
+import { defineProps, type Component } from 'vue';
 
 interface Props {
     title: string;
@@ -21,20 +19,18 @@ defineProps<Props>();
     <div class="relative aspect-video overflow-hidden rounded-xl border border-gray-300 shadow-xl">
         <img :src="image" alt="" />
 
-        <!-- Outer clickable card -->
         <Link
             :href="href"
-            class="flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-300 p-4 text-center shadow-sm transition hover:bg-secondary  hover:shadow-md"
-
+            class="group flex h-full w-full flex-col items-center justify-center gap-1 rounded-lg border border-gray-300 p-4 text-center shadow-sm transition hover:bg-secondary hover:shadow-md"
         >
-            <component v-if="icon" :is="icon" class="mb-2 h-6 w-6 text-gray-600" />
-            <span v-if="count" class="font-bold">Przepisy: {{ count }}</span>
-            <span class="text-2xl font-bold text-orange-500 hover:text-orange-600">{{ title }} </span>
+            <component v-if="icon" :is="icon" class="mb-2 h-6 w-6 text-gray-600 group-hover:text-white" />
+            <span v-if="count" class="font-bold group-hover:text-white">Przepisy: {{ count }}</span>
+            <span class="text-2xl font-bold text-teal-500 group-hover:text-white">{{ title }}</span>
         </Link>
 
-            <div class="absolute bottom-1/8 left-1/2 -translate-x-1/2 w-max">
+
+        <div class="absolute bottom-1/8 left-1/2 w-max -translate-x-1/2">
             <LinkButton variant="default" v-if="randomHref" :href="randomHref">Wylosuj przepis</LinkButton>
         </div>
     </div>
 </template>
-

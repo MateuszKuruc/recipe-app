@@ -15,7 +15,7 @@ defineProps({
             <Link
                 v-if="currentSlug !== recipe.category.slug"
                 :href="route('categories.show', recipe.category.slug)"
-                class="absolute top-5 right-0 flex gap-2 rounded-l-xl bg-yellow-500 px-6 py-3"
+                class="absolute top-5 right-0 flex gap-2 rounded-l-xl bg-teal-600 text-white px-6 py-3"
             >
                 <Tag />
                 {{ recipe.category.name }}
@@ -26,8 +26,8 @@ defineProps({
         </div>
 
         <RecipeBadge :tags="recipe.tags" />
-        <Link :href="route('recipes.show', recipe.slug)" class="w-max">
-            <h2 class="text-lg font-semibold text-orange-600 sentence-case">{{ recipe.title }}</h2>
+        <Link :href="route('recipes.show', recipe.slug)" class="w-full">
+            <h2 class="text-2xl font-semibold text-rose-600 sentence-case mt-2 break-words">{{ recipe.title }}</h2>
         </Link>
         <p class="paragraph sentence-case">{{ recipe.excerpt }}</p>
     </div>

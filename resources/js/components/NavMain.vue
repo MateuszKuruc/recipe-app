@@ -19,7 +19,7 @@ const page = usePage();
                 <!-- Regular nav item (no children) -->
                 <SidebarMenuButton v-if="!item.children" as-child :is-active="item.href === '/'
     ? page.url === '/'
-    : page.url === item.href || page.url.startsWith(item.href + '?')" :tooltip="item.title" size="lg">
+    : page.url === item.href || page.url.startsWith(item.href + '?')" :tooltip="item.title" size="lg" class="hover:text-white hover:font-bold">
                     <Link :href="item.href">
                         <div class="h-8 w-8 shrink-0">
                             <component :is="item.icon" class="h-full w-full" />
@@ -30,7 +30,7 @@ const page = usePage();
 
                 <!-- Parent item with nested children, still clickable -->
                 <div v-else class="flex flex-col gap-1">
-                    <SidebarMenuButton as-child :is-active="item.href === page.url" :tooltip="item.title" size="lg">
+                    <SidebarMenuButton as-child :is-active="item.href === page.url" :tooltip="item.title" size="lg" class="hover:text-white hover:font-bold">
                         <Link :href="item.href">
                             <div class="h-8 w-8 shrink-0">
                                 <component :is="item.icon" class="h-full w-full" />
@@ -41,7 +41,7 @@ const page = usePage();
 
                     <SidebarMenu class="flex flex-col gap-3 pt-3 pl-6">
                         <SidebarMenuItem v-for="child in item.children" :key="child.title">
-                            <SidebarMenuButton as-child :is-active="child.href === page.url" :tooltip="child.title" size="lg">
+                            <SidebarMenuButton as-child :is-active="child.href === page.url" :tooltip="child.title" size="lg" class="hover:text-white hover:font-bold">
                                 <Link :href="child.href">
                                     <div class="h-6 w-6 shrink-0">
                                         <component :is="child.icon" class="h-full w-full" />

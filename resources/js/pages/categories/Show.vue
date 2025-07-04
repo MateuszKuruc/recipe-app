@@ -25,7 +25,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="flex h-full flex-1 flex-col gap-8 rounded-xl p-6">
             <div class="flex flex-col gap-y-4">
                 <h2 class="border-b border-gray-300 py-4 text-2xl font-bold">
-                    Wszystkie <span class="text-orange-500 lowercase">{{ category.name }}</span>
+                    Wszystkie <span class="text-rose-600 lowercase">{{ category.name }}</span>
                 </h2>
                 <div
                     class="relative grid min-h-[100vh] flex-1 grid-cols-2 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"

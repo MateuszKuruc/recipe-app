@@ -76,7 +76,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
             </div>
 
-            <div class="space-y-8">
+            <div class="space-y-8 w-full">
                 <h2 class="border-b pt-6 pb-6 text-3xl font-bold">Sprawdź też:</h2>
                 <div class="flex flex-col gap-4">
                     <ActionCard

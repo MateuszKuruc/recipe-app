@@ -31,17 +31,17 @@ function badgeIcon(name) {
 function badgeClass(name) {
     switch (name) {
         case 'Wegetariański':
-            return 'bg-green-600';
+            return 'bg-emerald-600';
         case 'Wysokobiałkowy':
-            return 'bg-blue-500';
+            return 'bg-sky-500';
         case 'Ostry':
-            return 'bg-red-500';
+            return 'bg-rose-600';
         case 'Słodki':
             return 'bg-pink-500';
         case 'Szybki':
-            return 'bg-orange-500';
+            return 'bg-amber-500';
         case 'Czasochłonny':
-            return 'bg-gray-500';
+            return 'bg-slate-500';
     }
 }
 </script>

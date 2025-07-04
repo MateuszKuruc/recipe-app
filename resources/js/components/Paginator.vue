@@ -44,7 +44,7 @@ const pageLinks = computed(() => {
             :class="[
         'px-3 py-1 border rounded text-sm',
         prevLink.url
-          ? 'bg-white text-gray-700 hover:bg-gray-100'
+          ? 'bg-white text-gray-700 hover:bg-rose-100'
           : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none',
       ]"
             v-html="'&laquo; Poprzednia'"
@@ -67,8 +67,8 @@ const pageLinks = computed(() => {
                 :class="[
           'px-3 py-1 border rounded text-sm',
           link.active
-            ? 'bg-blue-500 text-white'
-            : 'bg-white text-gray-700 hover:bg-gray-100',
+            ? 'bg-rose-600 text-white'
+            : 'bg-white text-gray-700 hover:bg-rose-100',
         ]"
                 v-html="link.label"
             />
@@ -80,8 +80,8 @@ const pageLinks = computed(() => {
             :class="[
         'px-3 py-1 border rounded text-sm',
         nextLink.url
-          ? 'bg-white text-gray-700 hover:bg-gray-100'
-          : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none',
+          ? 'bg-white text-gray-700 hover:bg-rose-100'
+          : 'bg-rose-200 text-gray-400 cursor-not-allowed pointer-events-none',
       ]"
             v-html="'Następna &raquo;'"
         />

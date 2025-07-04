@@ -90,8 +90,8 @@ const sections = [
                         </CarouselItem>
                     </CarouselContent>
 
-                    <CarouselPrevious @click="autoplay.reset()" class="absolute top-1/2 left-0 z-10 -translate-y-1/2" />
-                    <CarouselNext @click="autoplay.reset()" class="absolute top-1/2 right-0 z-10 -translate-y-1/2" />
+                    <CarouselPrevious @click="autoplay.reset()" class="absolute top-1/2 left-0 z-10 -translate-y-1/2 bg-rose-700 text-white hover:bg-rose-600 hover:text-white" />
+                    <CarouselNext @click="autoplay.reset()" class="absolute top-1/2 right-0 z-10 -translate-y-1/2 bg-rose-700 text-white hover:bg-rose-600 hover:text-white" />
                 </Carousel>
             </div>
 

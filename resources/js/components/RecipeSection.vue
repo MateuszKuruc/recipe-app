@@ -16,9 +16,9 @@ defineProps({
         <div class="mb-8 flex flex-col items-center justify-between gap-4 border-b border-gray-300 pb-4 sm:flex-row sm:gap-0">
             <h2 class="text-3xl font-extrabold">
                 <span v-if="isCategory">Kategoria: </span>
-                <span class="text-orange-500">{{ label }}</span>
+                <span class="text-rose-600">{{ label }}</span>
             </h2>
-            <LinkButton :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition hover:bg-gray-100">
+            <LinkButton :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition">
                 {{ buttonLabel }}
             </LinkButton>
         </div>

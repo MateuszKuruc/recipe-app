@@ -11,16 +11,20 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex h-full flex-col rounded-xl shadow bg-orange-50">
-        <!-- Image -->
+    <div class="flex h-full flex-col rounded-xl shadow bg-gradient-to-br from-white to-[#f9f9f9]">
+
+
+
+
+    <!-- Image -->
         <Link :href="href" class="block">
             <img :src="image" :alt="title" class="aspect-[3/4] w-full object-cover rounded-xl" />
         </Link>
 
         <!-- Content -->
-        <div class="flex flex-1 flex-col justify-between px-4 py-3">
+        <div class="flex flex-1 flex-col justify-between px-4 py-3 gap-3">
             <Link :href="href">
-                <h3 class="text-lg leading-snug font-bold text-orange-500 break-words">
+                <h3 class="text-lg leading-snug font-bold text-rose-700 break-words">
                     {{ title }}
                 </h3>
             </Link>
