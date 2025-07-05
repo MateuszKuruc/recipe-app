@@ -50,7 +50,7 @@ const categories: NavItem[] = [
 </script>
 
 <template>
-    <footer class="mt-12 bg-primary text-sm text-white">
+    <footer class="mt-12 bg-primary dark:bg-stone-900 text-sm text-white">
         <!-- Main grid content -->
         <div class="border-t border-border px-6 py-10">
             <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">

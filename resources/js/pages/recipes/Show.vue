@@ -217,7 +217,7 @@ const deleteRecipe = () => {
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Kategorie</h3>
                             <ul class="space-y-1 text-sm">
                                 <li v-for="category in categories" :key="category.id">
-                                    <Link :href="route('categories.show', category.slug)" class="text-gray-700 hover:text-rose-600 hover:underline">
+                                    <Link :href="route('categories.show', category.slug)" class="paragraph hover:text-rose-600 hover:underline">
                                         {{ category.name }} <span class="text-gray-400">({{ category.recipes_count }})</span>
                                     </Link>
                                 </li>
