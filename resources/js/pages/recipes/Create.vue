@@ -13,8 +13,12 @@ defineProps({
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
+        title: 'Przepisy',
+        href: route('recipes.index'),
+    },
+    {
         title: 'Nowy przepis',
-        href: '/kategorie',
+        href: '/przepisy/dodaj',
     },
 ];
 

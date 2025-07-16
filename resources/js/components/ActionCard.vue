@@ -25,7 +25,7 @@ defineProps<Props>();
         >
             <component v-if="icon" :is="icon" class="mb-2 h-6 w-6 text-gray-600 dark:text-gray-300 group-hover:text-white" />
             <span v-if="count" class="font-bold group-hover:text-white">Przepisy: {{ count }}</span>
-            <span class="text-2xl font-bold text-teal-500 ">{{ title }}</span>
+            <span class="text-2xl font-bold text-teal-500">{{ title }}</span>
         </Link>
 
 

@@ -21,7 +21,7 @@ import { useToast } from 'vue-toastification';
 
 const toast = useToast();
 
-defineProps({
+const props = defineProps({
     recipe: Object,
     categories: Array,
     relatedRecipes: Array,
@@ -30,7 +30,11 @@ defineProps({
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Przepisy',
-        href: '/przepisy',
+        href: route('recipes.index'),
+    },
+    {
+        title: props.recipe.title,
+        href: `/przepisy/${props.recipe.slug}`,
     },
 ];
 
@@ -124,7 +128,7 @@ const deleteRecipe = () => {
                             </Button>
                         </div>
 
-                        <h2 class="max-w-full text-4xl font-bold break-words text-rose-600">{{ recipe.title }}</h2>
+                        <h2 class="max-w-full text-4xl font-bold break-words text-rose-600 sentence-case">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>

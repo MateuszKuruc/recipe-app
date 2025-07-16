@@ -167,10 +167,6 @@ const handleSecondaryImageUpload = (e: Event) => {
         secondaryImagePreview.value = URL.createObjectURL(file);
     }
 };
-
-console.log('Categories:', props.categories);
-console.log('Tags:', props.tags);
-console.log(form.prepare_time);
 </script>
 
 <template>

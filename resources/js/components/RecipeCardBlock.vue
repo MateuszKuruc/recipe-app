@@ -24,7 +24,7 @@ defineProps({
         <!-- Content -->
         <div class="flex flex-1 flex-col justify-between px-4 py-3 gap-3">
             <Link :href="href">
-                <h3 class="text-lg leading-snug font-bold text-rose-700 break-words">
+                <h3 class="text-lg leading-snug font-bold text-rose-700 break-words sentence-case">
                     {{ title }}
                 </h3>
             </Link>

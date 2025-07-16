@@ -22,8 +22,8 @@ defineProps<{
         <div
             class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6 md:px-10 text-white gap-2"
         >
-            <h2 class="text-3xl md:text-4xl font-extrabold drop-shadow-lg">{{ title }}</h2>
-            <p class="mt-2 text-base md:text-lg max-w-2xl text-white/90 leading-relaxed">
+            <h2 class="text-3xl md:text-4xl font-extrabold drop-shadow-lg sentence-case">{{ title }}</h2>
+            <p class="mt-2 text-base md:text-lg max-w-2xl text-white/90 leading-relaxed sentence-case">
                 {{ excerpt }}
             </p>
             <LinkButton

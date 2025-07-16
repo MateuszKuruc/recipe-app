@@ -31,7 +31,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
+const autoplay = Autoplay({ delay: 3500, stopOnInteraction: false });
 
 const sections = [
     favoriteRecipes && {

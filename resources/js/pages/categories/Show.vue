@@ -12,8 +12,12 @@ const props = defineProps({
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: props.category?.name || '',
+        title: 'Kategorie',
         href: '/kategorie',
+    },
+    {
+        title: props.category?.name || '',
+        href: `/kategorie/${props.category?.slug}`,
     },
 ];
 </script>
