@@ -14,7 +14,7 @@ defineProps({
 <template>
     <section class="mx-auto w-full max-w-6xl px-4">
         <div class="mb-8 flex flex-col items-center justify-between gap-4 border-b border-gray-300 pb-4 sm:flex-row sm:gap-0">
-            <h2 class="text-3xl font-extrabold">
+            <h2 class="text-3xl font-extrabold text-center">
                 <span v-if="isCategory">Kategoria: </span>
                 <span class="text-rose-600">{{ label }}</span>
             </h2>

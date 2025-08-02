@@ -30,7 +30,7 @@ const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mt-16 flex h-full max-w-[1440px] flex-1 flex-col gap-8 rounded-xl p-4 items-center self-center">
             <div class="flex flex-col items-center gap-4 border-b pb-6">
-                <h1 class="text-4xl font-bold">Kolekcja przepisów</h1>
+                <h1 class="text-4xl font-bold text-center">Kolekcja przepisów</h1>
                 <p class="paragraph max-w-[60ch] text-center">
                     Przeglądaj przepisy według kategorii i odkrywaj nowe pomysły na śniadania, obiady, desery i wiele więcej.
                 </p>
@@ -56,7 +56,7 @@ const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
 
             <div class="flex flex-col items-center gap-8 py-16">
                 <div class="flex w-full flex-col items-center gap-4 border-b pb-6">
-                    <h1 class="text-4xl font-bold">Brak pomysłu na jedzenie?</h1>
+                    <h1 class="text-4xl font-bold text-center">Brak pomysłu na jedzenie?</h1>
                     <p class="paragraph max-w-[60ch] text-center">
                         Wybierz kategorię, która Cię interesuje i poszukaj inspiracji lub oddaj decyzję w ręce losu i wybierz przepis niespodziankę z dowolnej kategorii
                     </p>
@@ -77,7 +77,7 @@ const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
             </div>
 
             <div class="space-y-8 w-full">
-                <h2 class="border-b pt-6 pb-6 text-3xl font-bold">Sprawdź też:</h2>
+                <h2 class="border-b pt-6 pb-6 text-3xl font-bold text-center">Sprawdź też:</h2>
                 <div class="flex flex-col gap-4">
                     <ActionCard
                         title="Wszystkie przepisy"
