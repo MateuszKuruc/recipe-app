@@ -18,6 +18,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('recipes.index'),
     },
     {
+        title: props.recipe.title,
+        href: `/przepisy/${props.recipe.slug}`,
+    },
+    {
         title: 'Edytuj przepis',
         href: `/przepisy/${props.recipe.slug}/edit`,
     },
