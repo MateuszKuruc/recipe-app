@@ -18,7 +18,7 @@ defineProps({
                 <span v-if="isCategory">Kategoria: </span>
                 <span class="text-rose-600">{{ label }}</span>
             </h2>
-            <LinkButton v-if="data" :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition">
+            <LinkButton v-if="data.length" :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition">
                 {{ buttonLabel }}
             </LinkButton>
         </div>
