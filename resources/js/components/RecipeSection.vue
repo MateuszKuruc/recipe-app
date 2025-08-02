@@ -23,11 +23,11 @@ defineProps({
             </LinkButton>
         </div>
 
-        <div v-if="!data">
+        <div v-if="!data.length">
             <p class="text-xl">Brak przepisów w tej kategorii.</p>
         </div>
 
-        <div v-if="data" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div v-if="data.length" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             <RecipeCardBlock
                 v-for="recipe in data"
                 :key="recipe.id"
