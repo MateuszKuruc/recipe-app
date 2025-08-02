@@ -103,11 +103,11 @@ const deleteRecipe = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-4">
             <div class="flex flex-col items-center border-b pb-8">
-                <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" />
+                <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
             </div>
 
             <div class="grid grid-cols-1 gap-8 2xl:grid-cols-[1fr_400px]">
-                <div class="max-w-[700px] pb-16 md:mx-auto md:pb-16">
+                <div class="max-w-[900px] pb-16 md:mx-auto md:pb-16">
                     <div class="flex flex-col gap-y-6 md:gap-y-4">
                         <div class="flex items-center justify-between">
                             <p>
@@ -128,7 +128,7 @@ const deleteRecipe = () => {
                             </Button>
                         </div>
 
-                        <h2 class="max-w-full text-4xl font-bold break-words text-rose-600 sentence-case">{{ recipe.title }}</h2>
+                        <h2 class="sentence-case max-w-full text-4xl font-bold break-words text-rose-600">{{ recipe.title }}</h2>
 
                         <RecipeBadge :tags="recipe.tags" />
                         <p class="paragraph pt-2">{{ recipe.excerpt }}</p>
@@ -161,8 +161,8 @@ const deleteRecipe = () => {
                     </div>
 
                     <div class="mb-16 grid grid-cols-1 overflow-hidden rounded-xl border border-gray-300 text-center md:grid-cols-3">
-                        <a href="#skladniki" class="md:border-r p-4 hover:bg-sidebar-accent border-b border-gray-300 md:border-b-0 ">Składniki</a>
-                        <a href="#przygotowanie" class="md: border-r p-4 hover:bg-primary/60 border-gray-300 border-b md:border-b-0">Przygotowanie</a>
+                        <a href="#skladniki" class="border-b border-gray-300 p-4 hover:bg-sidebar-accent md:border-r md:border-b-0">Składniki</a>
+                        <a href="#przygotowanie" class="md: border-r border-b border-gray-300 p-4 hover:bg-primary/60 md:border-b-0">Przygotowanie</a>
                         <a href="#uwagi" class="p-4 hover:bg-primary/60">Uwagi</a>
                     </div>
 
@@ -183,12 +183,12 @@ const deleteRecipe = () => {
                         </div>
 
                         <div v-if="recipe.secondary_image">
-                            <img :src="`/storage/${recipe.secondary_image}`" alt="" />
+                            <img :src="`/storage/${recipe.secondary_image}`" alt="" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
                         </div>
                     </div>
                 </div>
                 <!-- Right sidebar -->
-                <div class="mx-auto max-w-[700px] border-gray-300 2xl:border-l 2xl:pl-8">
+                <div class="mx-auto w-[600px] border-gray-300 2xl:w-[450px] 2xl:border-l 2xl:pl-8">
                     <aside class="w-full space-y-8">
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
