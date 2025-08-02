@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import LinkButton from '@/components/LinkButton.vue';
 import Paginator from '@/components/Paginator.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import NoResultsSection from '@/pages/categories/NoResultsSection.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
@@ -32,13 +32,11 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <h2 class="border-b border-gray-300 py-4 text-2xl font-bold">
                     Wszystkie <span class="text-rose-600 lowercase">{{ category.name }}</span>
                 </h2>
-                <div v-if="!recipes.data.length" class="mt-2 flex flex-col items-start gap-4">
-                    <p class="text-xl">Brak przepisów w tej kategorii.</p>
-                    <div class="flex gap-2">
-                        <LinkButton :href="route('recipes.create')"> Dodaj nowy przepis </LinkButton>
-                        <LinkButton :href="route('categories.index')" variant="outline"> Sprawdź pozostałe kategorie </LinkButton>
-                    </div>
-                </div>
+                <NoResultsSection
+                    :displayData="!recipes.data.length"
+                    buttonLabel="Sprawdź pozostałe kategorie"
+                    :buttonUrl="route('categories.index')"
+                />
                 <div v-if="recipes.data.length">
                     <div
                         class="relative grid min-h-[100vh] flex-1 grid-cols-1 gap-x-4 gap-y-4 rounded-xl border-sidebar-border/70 md:min-h-min md:grid-cols-2 dark:border-sidebar-border"

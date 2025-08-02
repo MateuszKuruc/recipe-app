@@ -10,6 +10,7 @@ import Paginator from '@/components/Paginator.vue';
 import { ref, watch } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
 import { debounce } from 'lodash';
+import LinkButton from '@/components/LinkButton.vue';
 
 defineProps({
     favoriteRecipes: Object,
@@ -51,6 +52,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
             <div v-if="!favoriteRecipes?.data?.length" class="flex flex-col items-center justify-center h-full">
                 <h3 class="text-2xl text-center">Nie masz jeszcze żadnych ulubionych przepisów</h3>
+
+                <div class="flex gap-2 mt-4">
+
+                <LinkButton :href="route('recipes.index')">
+                    Wszystkie przepisy
+                </LinkButton>
+
+                <LinkButton :href="route('categories.index')">
+                    Wszystkie kategorie
+                </LinkButton>
+                </div>
             </div>
         </div>
     </AppLayout>
