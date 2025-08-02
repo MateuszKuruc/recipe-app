@@ -21,7 +21,7 @@ const { getInitials } = useInitials();
 <template>
     <Avatar class="h-8 w-8 overflow-hidden rounded-lg">
         <AvatarFallback class="rounded-lg text-black dark:text-white">
-            {{ user ? getInitials(user.name): '' }}
+            {{ user ? getInitials(user.name): 'G' }}
         </AvatarFallback>
     </Avatar>
 

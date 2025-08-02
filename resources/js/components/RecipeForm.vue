@@ -311,7 +311,6 @@ const handleSecondaryImageUpload = (e: Event) => {
         </div>
 
         <div class="mt-6 flex items-center justify-between">
-            <!-- Left-side actions -->
             <div class="flex gap-2">
                 <LinkButton variant="outline" v-if="props.recipe" :href="route('recipes.show', recipe.slug)"> Anuluj </LinkButton>
 
