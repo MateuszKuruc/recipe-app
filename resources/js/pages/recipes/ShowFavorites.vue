@@ -29,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 </script>
 
 <template>
-    <Head title="Przepisy" />
+    <Head title="Ulubione przepisy" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="m-auto flex h-full w-full max-w-[1440px] flex-1 flex-col gap-8 rounded-xl p-4">

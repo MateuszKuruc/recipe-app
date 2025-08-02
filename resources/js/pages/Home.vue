@@ -73,7 +73,7 @@ const sections = [
 </script>
 
 <template>
-    <Head title="Recipe App" />
+    <Head title="Strona główna" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex flex-1 flex-col gap-8 p-4">
