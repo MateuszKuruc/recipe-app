@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { Drumstick } from 'lucide-vue-next';
+import { Pizza } from 'lucide-vue-next';
 
 defineOptions({
     inheritAttrs: false,
@@ -14,5 +14,5 @@ defineProps<Props>();
 </script>
 
 <template>
-   <Drumstick />
+   <Pizza />
 </template>
