@@ -77,7 +77,7 @@ const sections = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex flex-1 flex-col gap-8 p-4">
-            <div class="relative w-full overflow-visible px-4">
+            <div v-if="randomRecipes" class="relative w-full overflow-visible px-4">
                 <Carousel orientation="horizontal" class="mx-auto w-full max-w-6xl" :opts="{ loop: true }" :plugins="[autoplay]">
                     <CarouselContent>
                         <CarouselItem v-for="randomRecipe in randomRecipes" :key="randomRecipe.id">

@@ -18,12 +18,16 @@ defineProps({
                 <span v-if="isCategory">Kategoria: </span>
                 <span class="text-rose-600">{{ label }}</span>
             </h2>
-            <LinkButton :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition">
+            <LinkButton v-if="data" :href="href" class="rounded-md border px-4 py-2 text-sm font-medium transition">
                 {{ buttonLabel }}
             </LinkButton>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div v-if="!data">
+            <p class="text-xl">Brak przepisów w tej kategorii.</p>
+        </div>
+
+        <div v-if="data" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             <RecipeCardBlock
                 v-for="recipe in data"
                 :key="recipe.id"

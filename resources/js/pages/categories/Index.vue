@@ -36,7 +36,7 @@ const autoplay = Autoplay({ delay: 2000, stopOnInteraction: false });
                 </p>
             </div>
 
-            <div class="relative w-full overflow-visible px-4">
+            <div v-if="randomRecipes.length" class="relative w-full overflow-visible px-4">
                 <Carousel orientation="horizontal" class="mx-auto w-full max-w-6xl" :opts="{ loop: true }" :plugins="[autoplay]">
                     <CarouselContent>
                         <CarouselItem v-for="randomRecipe in randomRecipes" :key="randomRecipe.id">

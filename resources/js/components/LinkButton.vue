@@ -10,7 +10,7 @@ const base = 'inline-flex items-center justify-center gap-2 rounded-md text-sm f
 
 const variants: Record<string, string> = {
   default: 'bg-rose-700 text-white foreground hover:bg-rose-600 dark:hover:bg-rose-500',
-  outline: 'border border-input bg-background text-foreground hover:bg-accent dark:hover:bg-gray-300 hover:text-accent-foreground',
+  outline: 'border border-accent bg-background text-foreground hover:bg-accent dark:hover:bg-gray-300 hover:text-accent-foreground',
   destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
 };
 

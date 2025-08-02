@@ -30,7 +30,7 @@ defineProps<Props>();
 
 
         <div class="absolute bottom-1/8 left-1/2 w-max -translate-x-1/2">
-            <LinkButton variant="default" class="" v-if="randomHref" :href="randomHref">Wylosuj przepis</LinkButton>
+            <LinkButton variant="default" class="" v-if="randomHref && count" :href="randomHref">Wylosuj przepis</LinkButton>
         </div>
     </div>
 </template>
