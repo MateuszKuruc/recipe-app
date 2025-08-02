@@ -5,10 +5,32 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/poppins-v23-latin_latin-ext-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/poppins-v23-latin_latin-ext-600.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/poppins-v23-latin_latin-ext-700.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-sans: Instrument Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: Poppins, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -79,7 +101,7 @@
 @layer utilities {
     body,
     html {
-        --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     }
 }
 
@@ -116,9 +138,9 @@
     --sidebar-accent-foreground: oklch(0.3353 0.0132 2.7676);
     --sidebar-border: oklch(0.75 0.06 190);
     --sidebar-ring: oklch(0.65 0.18 195);
-    --font-sans: Montserrat, sans-serif;
-    --font-serif: Merriweather, serif;
-    --font-mono: Ubuntu Mono, monospace;
+    /*--font-sans: Montserrat, sans-serif;*/
+    /*--font-serif: Merriweather, serif;*/
+    /*--font-mono: Ubuntu Mono, monospace;*/
     --radius: 0.625rem;
     --shadow-2xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
     --shadow-xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
@@ -165,9 +187,9 @@
     --sidebar-accent-foreground: oklch(0.2569 0.0169 352.4042);
     --sidebar-border: oklch(0.3800 0.0200 342);
     --sidebar-ring: oklch(0.55 0.16 195);
-    --font-sans: Montserrat, sans-serif;
-    --font-serif: Merriweather, serif;
-    --font-mono: Ubuntu Mono, monospace;
+    /*--font-sans: Montserrat, sans-serif;*/
+    /*--font-serif: Merriweather, serif;*/
+    /*--font-mono: Ubuntu Mono, monospace;*/
     --radius: 0.625rem;
     --shadow-2xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
     --shadow-xs: 0px 6px 12px -3px hsl(0 0% 0% / 0.04);
