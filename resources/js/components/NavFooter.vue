@@ -16,7 +16,7 @@ const page = usePage(); // ✅ Access current page URL
 <template>
     <SidebarGroup :class="`group-data-[collapsible=icon]:p-0 ${$props.class || ''}`">
         <SidebarGroupContent>
-            <SidebarMenu class="flex flex-col gap-3 px-2 py-4 rounded-xl border border-gray-400 mb-6">
+            <SidebarMenu class="flex flex-col gap-3 py-4 rounded-xl border border-gray-400 mb-6 items-center">
                 <SidebarMenuItem v-for="item in items" :key="item.title">
                     <SidebarMenuButton
                         :is-active="item.href === page.url || page.url.startsWith(item.href + '?')"
@@ -24,7 +24,7 @@ const page = usePage(); // ✅ Access current page URL
                     :tooltip="item.title"
                     as-child
                     >
-                    <Link :href="item.href">
+                    <Link :href="item.href" class="pl-1">
                         <div class="h-6 w-6 shrink-0">
                             <component :is="item.icon" class="h-full w-full" />
                         </div>
