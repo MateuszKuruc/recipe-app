@@ -64,8 +64,8 @@ watch(
             </div>
 
             <div class="flex flex-col gap-y-4">
-                <h2 class="border-b border-gray-300 py-6 text-2xl font-bold">Wszystkie przepisy</h2>
-                <NoResultsSection :displayData="!recipes.data.length" />
+                <h2 v-if="recipes.data.length" class="border-b border-gray-300 py-6 text-2xl font-bold">Wszystkie przepisy</h2>
+                <NoResultsSection :displayData="recipes.data.length" />
 
                 <div v-if="recipes.data.length">
                     <div
