@@ -21,6 +21,7 @@ class Recipe extends Model
         'cooking_time',
         'servings',
         'instructions',
+        'comments',
         'main_image',
         'secondary_image',
     ];

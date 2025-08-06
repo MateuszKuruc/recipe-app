@@ -28,6 +28,7 @@ const form = useForm({
     cooking_time: props.recipe?.cooking_time ?? '',
     servings: props.recipe?.servings ?? '',
     instructions: props.recipe?.instructions ?? '',
+    comments: props.recipe?.comments ?? '',
     main_image: null,
     secondary_image: null,
     tags: props.recipe?.tags?.map((tag) => tag.id) ?? [],
@@ -293,6 +294,11 @@ const handleSecondaryImageUpload = (e: Event) => {
             <div class="grid gap-2">
                 <Textarea id="instructions" v-model="form.instructions" placeholder="Opisz wszystkie kroki" class="h-24" />
                 <InputError :message="form.errors.instructions" />
+            </div>
+
+            <div class="grid gap-2">
+                <Textarea id="comments" v-model="form.comments" placeholder="Przekaż dodatkowe uwagi, jeśli jakieś masz" class="h-24" />
+                <InputError :message="form.errors.comments" />
             </div>
 
             <div class="grid gap-2">

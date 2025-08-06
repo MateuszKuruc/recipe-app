@@ -102,7 +102,7 @@ const deleteRecipe = () => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-4">
-            <div class="flex flex-col items-center border-b pb-8">
+            <div class="flex flex-col items-center 2xl:mr-80 border-b pb-8">
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
             </div>
 
@@ -179,7 +179,7 @@ const deleteRecipe = () => {
 
                         <div class="flex flex-col gap-y-2" id="uwagi">
                             <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
-                            <p class="paragraph">{{ recipe.ingredients }}</p>
+                            <p class="paragraph">{{ recipe.comments }}</p>
                         </div>
 
                         <div v-if="recipe.secondary_image">

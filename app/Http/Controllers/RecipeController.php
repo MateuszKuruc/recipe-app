@@ -63,6 +63,7 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer',
             'servings' => 'required|integer',
             'instructions' => 'required|string',
+            'comments' => 'string',
             'main_image' => 'required|image|max:2048',
             'secondary_image' => 'nullable|image|max:2048',
             'tags.*' => 'integer|exists:tags,id'
@@ -127,6 +128,7 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer',
             'servings' => 'required|integer',
             'instructions' => 'required|string',
+            'comments' => 'string',
             'main_image' => 'nullable|image|max:2048',
             'secondary_image' => 'nullable|image|max:2048',
             'tags.*' => 'integer|exists:tags,id'
