@@ -185,7 +185,7 @@ const handleSecondaryImageUpload = (e: Event) => {
             </div>
 
             <div class="grid gap-2">
-                <Label for="category">Kategoria</Label>
+                <Label for="category" class="font-semibold">Kategoria</Label>
 
                 <Select v-model="form.category_id">
                     <SelectTrigger class="w-full">
@@ -203,13 +203,13 @@ const handleSecondaryImageUpload = (e: Event) => {
             </div>
 
             <div class="grid gap-2">
-                <Label for="title">Nazwa</Label>
+                <Label for="title" class="font-semibold">Nazwa</Label>
                 <Input id="title" type="text" required v-model="form.title" placeholder="Pizza" />
                 <InputError :message="form.errors.title" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="excerpt">Krótki opis</Label>
+                <Label for="excerpt" class="font-semibold">Krótki opis</Label>
 
                 <Textarea id="excerpt" v-model="form.excerpt" placeholder="Napisz kilka słów o przepisie" class="h-24" />
 
@@ -218,7 +218,7 @@ const handleSecondaryImageUpload = (e: Event) => {
         </div>
         <div v-if="currentStep === 2" class="grid gap-6">
             <div class="grid gap-2">
-                <Label for="excerpt">Składniki</Label>
+                <Label for="ingredients" class="font-semibold">Składniki</Label>
 
                 <Textarea id="ingredients" v-model="form.ingredients" placeholder="300g kurczaka, 2 papryki..." class="h-24" />
 
@@ -226,7 +226,7 @@ const handleSecondaryImageUpload = (e: Event) => {
             </div>
 
             <div class="grid gap-2">
-                <Label for="prepare_time">Czas przygotowania</Label>
+                <Label for="prepare_time" class="font-semibold">Czas przygotowania</Label>
 
                 <Select v-model="form.prepare_time">
                     <SelectTrigger class="w-full">
@@ -248,7 +248,7 @@ const handleSecondaryImageUpload = (e: Event) => {
             </div>
 
             <div class="grid gap-2">
-                <Label for="cooking_time">Czas gotowania</Label>
+                <Label for="cooking_time" class="font-semibold">Czas gotowania</Label>
 
                 <Select v-model="form.cooking_time">
                     <SelectTrigger class="w-full">
@@ -271,7 +271,7 @@ const handleSecondaryImageUpload = (e: Event) => {
             </div>
 
             <div class="grid gap-2">
-                <Label for="servings">Liczba porcji</Label>
+                <Label for="servings" class="font-semibold">Liczba porcji</Label>
 
                 <Select v-model="form.servings">
                     <SelectTrigger class="w-full">
@@ -292,24 +292,26 @@ const handleSecondaryImageUpload = (e: Event) => {
         </div>
         <div v-if="currentStep === 3" class="grid gap-6">
             <div class="grid gap-2">
+                <Label for="instructions" class="font-semibold">Instrukcja</Label>
                 <Textarea id="instructions" v-model="form.instructions" placeholder="Opisz wszystkie kroki" class="h-24" />
                 <InputError :message="form.errors.instructions" />
             </div>
 
             <div class="grid gap-2">
-                <Textarea id="comments" v-model="form.comments" placeholder="Przekaż dodatkowe uwagi, jeśli jakieś masz" class="h-24" />
+                <Label for="comments" class="font-semibold">Uwagi</Label>
+                <Textarea id="comments" v-model="form.comments" placeholder="Dodatkowe uwagi (opcjonalne)" class="h-24" />
                 <InputError :message="form.errors.comments" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="main_image">Zdjęcie główne</Label>
+                <Label for="main_image" class="font-semibold">Zdjęcie główne</Label>
                 <img v-if="mainImagePreview" :src="mainImagePreview" class="h-16 w-16 object-cover" />
                 <Input id="main_image" type="file" @change="handleMainImageUpload" />
                 <InputError :message="form.errors.main_image" />
             </div>
 
             <div class="grid gap-2">
-                <Label for="secondary_image">Zdjęcie dodatkowe</Label>
+                <Label for="secondary_image" class="font-semibold">Zdjęcie dodatkowe</Label>
                 <img v-if="secondaryImagePreview" :src="secondaryImagePreview" class="h-16 w-16 object-cover" />
                 <Input id="secondary_image" type="file" @change="handleSecondaryImageUpload" />
                 <InputError :message="form.errors.secondary_image" />

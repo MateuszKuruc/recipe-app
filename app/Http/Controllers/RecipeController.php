@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class RecipeController extends Controller
 {
@@ -63,18 +65,34 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer',
             'servings' => 'required|integer',
             'instructions' => 'required|string',
-            'comments' => 'string',
-            'main_image' => 'required|image|max:2048',
-            'secondary_image' => 'nullable|image|max:2048',
+            'comments' => 'nullable|string',
+            'main_image' => 'required|image',
+            'secondary_image' => 'nullable|image',
             'tags.*' => 'integer|exists:tags,id'
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
 
-        $mainImagePath = $request->file('main_image')->store('recipes', 'public');
-        $secondaryImagePath = $request->file('secondary_image')
-            ? $request->file('secondary_image')->store('recipes', 'public')
-            : null;
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($request->file('main_image'));
+
+        $optimizedImage = $image
+            ->scaleDown(width: 800)
+            ->toWebp(quality: 85);
+
+        $mainImagePath = 'recipes/'.uniqid().'.webp';
+        Storage::disk('public')->put($mainImagePath, $optimizedImage);
+
+        $secondaryImagePath = null;
+        if ($request->hasFile('secondary_image')) {
+            $secondaryImage = $manager->read($request->file('secondary_image'));
+            $optimizedSecondaryImage = $secondaryImage
+                ->scaleDown(width: 800)
+                ->toWebp(quality: 85);
+
+            $secondaryImagePath = 'recipes/'.uniqid().'.webp';
+            Storage::disk('public')->put($secondaryImagePath, $optimizedSecondaryImage);
+        }
 
         unset($validated['tags']);
 
@@ -88,7 +106,6 @@ class RecipeController extends Controller
         $recipe->tags()->attach($request->tags);
 
         return redirect()->route('recipes.show', $recipe->slug);
-
     }
 
     public function show(Recipe $recipe)
@@ -128,9 +145,9 @@ class RecipeController extends Controller
             'cooking_time' => 'required|integer',
             'servings' => 'required|integer',
             'instructions' => 'required|string',
-            'comments' => 'string',
-            'main_image' => 'nullable|image|max:2048',
-            'secondary_image' => 'nullable|image|max:2048',
+            'comments' => 'nullable|string',
+            'main_image' => 'nullable|image',
+            'secondary_image' => 'nullable|image',
             'tags.*' => 'integer|exists:tags,id'
         ]);
 
@@ -139,14 +156,41 @@ class RecipeController extends Controller
             $validated['slug'] = Str::slug($validated['title']);
         }
 
+        $manager = new ImageManager(new Driver());
+
         if ($request->hasFile('main_image')) {
-            $validated['main_image'] = $request->file('main_image')->store('recipes', 'public');
+
+            if ($recipe->main_image) {
+                Storage::disk('public')->delete($recipe->main_image);
+            }
+
+            $image = $manager->read($request->file('main_image'));
+            $optimizedImage = $image
+                ->scaleDown(width: 800)
+                ->toWebp(quality: 85);
+
+            $mainImagePath = 'recipes/'.uniqid().'.webp';
+            Storage::disk('public')->put($mainImagePath, $optimizedImage);
+            $validated['main_image'] = $mainImagePath;
+
         } else {
             unset($validated['main_image']);
         }
 
         if ($request->hasFile('secondary_image')) {
-            $validated['secondary_image'] = $request->file('secondary_image')->store('recipes', 'public');
+            if ($recipe->secondary_image) {
+                Storage::disk('public')->delete($recipe->secondary_image);
+            }
+
+            $secondaryImage = $manager->read($request->file('secondary_image'));
+            $optimizedSecondaryImage = $secondaryImage
+                ->scaleDown(width: 800)
+                ->toWebp(quality: 85);
+
+            $secondaryImagePath = 'recipes/'.uniqid().'.webp';
+            Storage::disk('public')->put($secondaryImagePath, $optimizedSecondaryImage);
+            $validated['secondary_image'] = $secondaryImagePath;
+
         } else {
             unset($validated['secondary_image']);
         }
