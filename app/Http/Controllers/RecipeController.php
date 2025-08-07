@@ -71,7 +71,17 @@ class RecipeController extends Controller
             'tags.*' => 'integer|exists:tags,id'
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        $baseSlug = Str::slug($validated['title']);
+
+        for ($i = 0; $i < 1000; $i++) {
+            $slug = $baseSlug.($i ? "-{$i}" : '');
+
+            if (!Recipe::where('slug', $slug)->exists()) {
+                break;
+            }
+        }
+
+        $validated['slug'] = $slug;
 
         $manager = new ImageManager(new Driver());
         $image = $manager->read($request->file('main_image'));
@@ -153,7 +163,17 @@ class RecipeController extends Controller
 
 
         if ($recipe->title != $validated['title']) {
-            $validated['slug'] = Str::slug($validated['title']);
+            $baseSlug = Str::slug($validated['title']);
+
+            for ($i = 0; $i < 1000; $i++) {
+                $slug = $baseSlug.($i ? "-{$i}" : '');
+
+                if (!Recipe::where('slug', $slug)->where('id', '!=', $recipe->id)->exists()) {
+                    break;
+                }
+            }
+
+            $validated['slug'] = $slug;
         }
 
         $manager = new ImageManager(new Driver());
