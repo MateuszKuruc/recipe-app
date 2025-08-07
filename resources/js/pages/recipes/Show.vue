@@ -102,7 +102,7 @@ const deleteRecipe = () => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-4">
-            <div class="flex flex-col items-center 2xl:mr-80 border-b pb-8">
+            <div class="flex flex-col items-center border-b pb-8 2xl:mr-80">
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
             </div>
 
@@ -179,7 +179,8 @@ const deleteRecipe = () => {
 
                         <div class="flex flex-col gap-y-2" id="uwagi">
                             <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
-                            <p class="paragraph">{{ recipe.comments }}</p>
+                            <p v-if="recipe.comments" class="paragraph">{{ recipe.comments }}</p>
+                            <p v-if="!recipe.comments" class="mt-2 text-xl">Brak</p>
                         </div>
 
                         <div v-if="recipe.secondary_image">
@@ -188,7 +189,7 @@ const deleteRecipe = () => {
                     </div>
                 </div>
                 <!-- Right sidebar -->
-                <div class="mx-auto w-[600px] border-gray-300 2xl:w-[450px] 2xl:border-l 2xl:pl-8">
+                <div class="mx-14 w-full border-gray-300 2xl:mx-auto 2xl:w-[350px] 2xl:border-l 2xl:pl-8">
                     <aside class="w-full space-y-8">
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
@@ -235,7 +236,7 @@ const deleteRecipe = () => {
                                     <img
                                         :src="`/storage/${recipe.main_image}`"
                                         :alt="recipe.title"
-                                        class="h-full w-full rounded-xl border object-cover"
+                                        class="h-full max-w-[600px] rounded-xl border object-cover 2xl:w-full"
                                     />
                                     <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-rose-600 hover:text-rose-500">
                                         {{ recipe.title }}
