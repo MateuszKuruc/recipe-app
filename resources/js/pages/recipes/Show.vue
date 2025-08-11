@@ -166,7 +166,7 @@ const deleteRecipe = () => {
                         <a href="#uwagi" class="p-4 hover:bg-primary/60">Uwagi</a>
                     </div>
 
-                    <div class="flex flex-col gap-16 space-y-8">
+                    <div class="flex flex-col gap-16 space-y-0">
                         <div class="flex flex-col gap-y-6" id="skladniki">
                             <h2 class="border-b pb-4 text-3xl font-bold">Składniki</h2>
                             <p class="paragraph">{{ recipe.ingredients }}</p>
