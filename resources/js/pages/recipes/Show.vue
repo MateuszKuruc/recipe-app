@@ -101,12 +101,11 @@ const deleteRecipe = () => {
     <Head :title="recipe.title" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-8 overflow-hidden rounded-xl p-6">
             <div class="flex flex-col items-center border-b pb-8 2xl:mr-80">
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
             </div>
 
-            <!--            <div class="grid grid-cols-1 gap-8 2xl:grid-cols-[1fr_400px]">-->
             <div class="grid grid-cols-1 gap-8 xl:grid-cols-[1fr_350px] 2xl:grid-cols-[1fr_400px]">
                 <div class="max-w-[900px] pb-16 md:mx-auto md:pb-16">
                     <div class="flex flex-col gap-y-6 md:gap-y-4">
@@ -168,18 +167,18 @@ const deleteRecipe = () => {
                     </div>
 
                     <div class="flex flex-col gap-16 space-y-8">
-                        <div class="flex flex-col gap-y-2" id="skladniki">
-                            <h2 class="border-b pb-2 text-3xl font-bold">Składniki</h2>
+                        <div class="flex flex-col gap-y-6" id="skladniki">
+                            <h2 class="border-b pb-4 text-3xl font-bold">Składniki</h2>
                             <p class="paragraph">{{ recipe.ingredients }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-y-2">
-                            <h2 class="border-b pb-2 text-3xl font-bold" id="przygotowanie">Przygotowanie</h2>
+                        <div class="flex flex-col gap-y-6">
+                            <h2 class="border-b pb-4 text-3xl font-bold" id="przygotowanie">Przygotowanie</h2>
                             <p class="paragraph">{{ recipe.instructions }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-y-2" id="uwagi">
-                            <h2 class="border-b pb-2 text-3xl font-bold">Uwagi</h2>
+                        <div class="flex flex-col gap-y-6" id="uwagi">
+                            <h2 class="border-b pb-4 text-3xl font-bold">Uwagi</h2>
                             <p v-if="recipe.comments" class="paragraph">{{ recipe.comments }}</p>
                             <p v-if="!recipe.comments" class="mt-2 text-xl">Brak</p>
                         </div>
