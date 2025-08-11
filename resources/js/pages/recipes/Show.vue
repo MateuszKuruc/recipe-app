@@ -106,7 +106,8 @@ const deleteRecipe = () => {
                 <img :src="`/storage/${recipe.main_image}`" :alt="recipe.title" class="aspect-[16/9] max-h-[40vh] rounded-xl object-cover" />
             </div>
 
-            <div class="grid grid-cols-1 gap-8 2xl:grid-cols-[1fr_400px]">
+            <!--            <div class="grid grid-cols-1 gap-8 2xl:grid-cols-[1fr_400px]">-->
+            <div class="grid grid-cols-1 gap-8 xl:grid-cols-[1fr_350px] 2xl:grid-cols-[1fr_400px]">
                 <div class="max-w-[900px] pb-16 md:mx-auto md:pb-16">
                     <div class="flex flex-col gap-y-6 md:gap-y-4">
                         <div class="flex items-center justify-between">
@@ -188,8 +189,8 @@ const deleteRecipe = () => {
                         </div>
                     </div>
                 </div>
-                <!-- Right sidebar -->
-                <div class="mx-14 w-full border-gray-300 2xl:mx-auto 2xl:w-[350px] 2xl:border-l 2xl:pl-8">
+
+                <div class="w-full max-w-[900px] md:mx-auto 2xl:mx-0 2xl:w-[350px] 2xl:max-w-none 2xl:border-l 2xl:border-gray-300 2xl:pl-8">
                     <aside class="w-full space-y-8">
                         <div class="flex flex-col gap-3">
                             <Link v-if="authUser && recipe.user_id === authUser.id" :href="route('recipes.edit', recipe.slug)">
@@ -229,17 +230,22 @@ const deleteRecipe = () => {
                             </ul>
                         </div>
 
-                        <div>
+                        <div v-if="relatedRecipes.length">
                             <h3 class="mb-3 border-b border-gray-300 pb-3 text-2xl font-semibold">Podobne przepisy</h3>
                             <ul class="flex flex-col space-y-8">
                                 <li v-for="recipe in relatedRecipes" :key="recipe.id" class="space-y-3">
-                                    <img
-                                        :src="`/storage/${recipe.main_image}`"
-                                        :alt="recipe.title"
-                                        class="h-full max-w-[600px] rounded-xl border object-cover 2xl:w-full"
-                                    />
-                                    <Link :href="route('recipes.show', recipe.slug)" class="text-2xl text-rose-600 hover:text-rose-500">
-                                        {{ recipe.title }}
+                                    <Link
+                                        :href="route('recipes.show', recipe.slug)"
+                                        class="flex flex-col gap-3 text-2xl text-rose-600 hover:text-rose-500"
+                                    >
+                                        <img
+                                            :src="`/storage/${recipe.main_image}`"
+                                            :alt="recipe.title"
+                                            class="h-full max-w-[400px] rounded-xl border object-cover xl:w-full"
+                                        />
+                                        <span class="sentence-case">
+                                            {{ recipe.title }}
+                                        </span>
                                     </Link>
                                 </li>
                             </ul>
