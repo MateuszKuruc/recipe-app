@@ -1,6 +1,7 @@
 Pinsa Recipe App 🍕
 A modern web application for discovering and sharing pinsa (and other) recipes. Built with Laravel, Vue.js, and Inertia.js for a seamless single-page application experience.
 Live Demo: https://zjedzpinse.pl/
+
 🚀 Features
 
 Recipe Management - Browse, create, and manage pinsa recipes
